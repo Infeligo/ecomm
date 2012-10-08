@@ -5,8 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ee.ttu.ecomm</groupId>
-    <artifactId>ecomm-core</artifactId>
+    <artifactId>core-ws</artifactId>
     <version>1.0</version>
+
     <build>
         <plugins>
             <plugin>
@@ -65,5 +66,5 @@
             <version>9.1-901.jdbc4</version>
         </dependency>
     </dependencies>
-
+    
 </project>

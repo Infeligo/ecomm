@@ -1,5 +1,6 @@
 package ee.ttu.ecomm.core.service;
 
+import ee.ttu.ecomm.core.domain.Address;
 import ee.ttu.ecomm.core.domain.Contract;
 
 import java.util.List;

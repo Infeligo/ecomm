@@ -7,11 +7,11 @@ The goal is to build a system that has its components running on 4-5 separate ma
 
 Below is the (planned) list of system components:
 
-- Core database (Postgres)
+- ./core-db - Core database (Postgres)
 
-- Core services (Java)
+- ./core - Core services (Java)
 
-- Contract Management web-client (PHP)
+- ./client-web - Contract Management web-client (PHP)
 
 - Customer Management GUI-client (Java/Swing)
 
