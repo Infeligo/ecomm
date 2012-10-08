@@ -1,0 +1,6293 @@
+--
+-- PostgreSQL database dump
+--
+
+SET client_encoding = 'SQL_ASCII';
+SET standard_conforming_strings = off;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET escape_string_warning = off;
+
+--
+-- Name: plpgsql; Type: PROCEDURAL LANGUAGE; Schema: -; Owner: postgres
+--
+
+CREATE PROCEDURAL LANGUAGE plpgsql;
+
+
+ALTER PROCEDURAL LANGUAGE plpgsql OWNER TO postgres;
+
+SET search_path = public, pg_catalog;
+
+--
+-- Name: plpgsql_call_handler(); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION plpgsql_call_handler() RETURNS language_handler
+    AS '/usr/local/pgsql/lib/plpgsql.so', 'plpgsql_call_handler'
+    LANGUAGE c;
+
+
+ALTER FUNCTION public.plpgsql_call_handler() OWNER TO postgres;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: c_group; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE c_group (
+    c_group numeric(30,0) DEFAULT nextval(('s_c_group'::text)::regclass) NOT NULL,
+    struct_unit numeric(30,0),
+    name character varying(100),
+    description character varying(300),
+    created timestamp without time zone,
+    created_by numeric(30,0),
+    updated timestamp without time zone,
+    updated_by numeric(30,0)
+);
+
+
+ALTER TABLE public.c_group OWNER TO postgres;
+
+--
+-- Name: catalog_type; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE catalog_type (
+    catalog_type numeric(30,0) DEFAULT nextval(('s_catalog_type'::text)::regclass) NOT NULL,
+    name character varying(100)
+);
+
+
+ALTER TABLE public.catalog_type OWNER TO postgres;
+
+--
+-- Name: comm_device; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE comm_device (
+    comm_device numeric(30,0) DEFAULT nextval(('s_comm_device'::text)::regclass) NOT NULL,
+    comm_device_type numeric(30,0),
+    customer numeric(30,0),
+    value_text character varying(100),
+    orderb numeric(30,0),
+    created timestamp without time zone
+);
+
+
+ALTER TABLE public.comm_device OWNER TO postgres;
+
+--
+-- Name: comm_device_type; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE comm_device_type (
+    comm_device_type numeric(30,0) DEFAULT nextval(('s_comm_device_type'::text)::regclass) NOT NULL,
+    name character varying(100),
+    description character varying(300)
+);
+
+
+ALTER TABLE public.comm_device_type OWNER TO postgres;
+
+--
+-- Name: contract; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE contract (
+    contract numeric(30,0) DEFAULT nextval(('s_contract'::text)::regclass) NOT NULL,
+    contract_manager numeric(30,0),
+    contract_status_type numeric(30,0),
+    customer numeric(30,0),
+    contract_type numeric(30,0),
+    cnt_number character varying(20),
+    name character varying(200),
+    description character varying(300),
+    valid_from timestamp without time zone,
+    valid_to timestamp without time zone,
+    parent_cnt numeric(30,0),
+    created timestamp without time zone,
+    updated timestamp without time zone,
+    created_by numeric(30,0),
+    updated_by numeric(30,0),
+    conditions character varying(300),
+    note character varying(300),
+    value_amount numeric(32,16),
+    struct_unit numeric(30,0)
+);
+
+
+ALTER TABLE public.contract OWNER TO postgres;
+
+--
+-- Name: contract_atr_type; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE contract_atr_type (
+    contract_atr_type numeric(30,0) NOT NULL,
+    name character varying(100),
+    valid_from timestamp without time zone,
+    valid_to timestamp without time zone,
+    required character varying(1),
+    uniq character varying(1),
+    selectable character varying(1),
+    orderb numeric(30,0),
+    active character varying(1),
+    created timestamp without time zone,
+    updated timestamp without time zone,
+    created_by numeric(30,0),
+    updated_by numeric(30,0),
+    can_change character varying(1),
+    default_value numeric(30,0),
+    default_value_text character varying(300)
+);
+
+
+ALTER TABLE public.contract_atr_type OWNER TO postgres;
+
+--
+-- Name: contract_atr_type_value; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE contract_atr_type_value (
+    contract_atr_type_value numeric(30,0) DEFAULT nextval(('s_contract_atr_type_value'::text)::regclass) NOT NULL,
+    contract_atr_type numeric(30,0),
+    value_text character varying(300),
+    orderb numeric(30,0),
+    active character varying(1),
+    created timestamp without time zone,
+    updated timestamp without time zone,
+    created_by numeric(30,0),
+    updated_by numeric(30,0)
+);
+
+
+ALTER TABLE public.contract_atr_type_value OWNER TO postgres;
+
+--
+-- Name: contract_attribute; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE contract_attribute (
+    contract_attribute numeric(30,0) DEFAULT nextval(('s_contract_attribute'::text)::regclass) NOT NULL,
+    contract_atr_type_value numeric(30,0),
+    contract_atr_type numeric(30,0),
+    contract numeric(30,0),
+    value_text character varying(300),
+    selectable character varying(1),
+    type_name character varying(100),
+    can_change character varying(1),
+    orderb numeric(30,0),
+    created_by numeric(30,0),
+    updated_by numeric(30,0),
+    created timestamp without time zone,
+    updated timestamp without time zone
+);
+
+
+ALTER TABLE public.contract_attribute OWNER TO postgres;
+
+--
+-- Name: contract_manager; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE contract_manager (
+    contract_manager numeric(30,0) DEFAULT nextval(('s_contract_manager'::text)::regclass) NOT NULL,
+    contract numeric(30,0),
+    employee numeric(30,0),
+    valid_from timestamp without time zone,
+    valid_to timestamp without time zone,
+    status numeric(30,0),
+    created timestamp without time zone,
+    created_by numeric(30,0),
+    updated timestamp without time zone,
+    updated_by numeric(30,0)
+);
+
+
+ALTER TABLE public.contract_manager OWNER TO postgres;
+
+--
+-- Name: contract_property; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE contract_property (
+    contract_property numeric(30,0) DEFAULT nextval(('s_contract_property'::text)::regclass) NOT NULL,
+    contract numeric(30,0),
+    property numeric(30,0),
+    status numeric(30,0),
+    note character varying(100),
+    relation_type numeric(30,0),
+    created_by numeric(30,0),
+    updated_by numeric(30,0),
+    created timestamp without time zone,
+    updated timestamp without time zone
+);
+
+
+ALTER TABLE public.contract_property OWNER TO postgres;
+
+--
+-- Name: contract_relation; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE contract_relation (
+    contract_relation numeric(30,0) DEFAULT nextval(('s_contract_relation'::text)::regclass) NOT NULL,
+    contract numeric(30,0),
+    contract1 numeric(30,0),
+    relation_type numeric(30,0),
+    valid_from timestamp without time zone,
+    valid_to timestamp without time zone,
+    created timestamp without time zone,
+    created_by numeric(30,0),
+    updated timestamp without time zone,
+    updated_by numeric(30,0),
+    status numeric(30,0)
+);
+
+
+ALTER TABLE public.contract_relation OWNER TO postgres;
+
+--
+-- Name: contract_status; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE contract_status (
+    contract_status numeric(30,0) DEFAULT nextval(('s_contract_status'::text)::regclass) NOT NULL,
+    contract numeric(30,0),
+    contract_status_type numeric(30,0),
+    valid_from timestamp without time zone,
+    valid_to timestamp without time zone,
+    status numeric(30,0),
+    created timestamp without time zone,
+    created_by numeric(30,0),
+    ended timestamp without time zone,
+    ended_by numeric(30,0)
+);
+
+
+ALTER TABLE public.contract_status OWNER TO postgres;
+
+--
+-- Name: contract_status_type; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE contract_status_type (
+    contract_status_type numeric(30,0) DEFAULT nextval(('s_contract_status_type'::text)::regclass) NOT NULL,
+    name character varying(100)
+);
+
+
+ALTER TABLE public.contract_status_type OWNER TO postgres;
+
+--
+-- Name: contract_type; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE contract_type (
+    contract_type numeric(30,0) DEFAULT nextval(('s_contract_type'::text)::regclass) NOT NULL,
+    name character varying(200)
+);
+
+
+ALTER TABLE public.contract_type OWNER TO postgres;
+
+--
+-- Name: contract_type_atrib; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE contract_type_atrib (
+    contract_type_atrib numeric(30,0) DEFAULT nextval(('s_contract_type_atrib'::text)::regclass) NOT NULL,
+    contract_atr_type numeric(30,0),
+    contract_type numeric(30,0),
+    valid_from timestamp without time zone,
+    valid_to timestamp without time zone,
+    status numeric(30,0),
+    orderb numeric(30,0)
+);
+
+
+ALTER TABLE public.contract_type_atrib OWNER TO postgres;
+
+--
+-- Name: cst_address; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE cst_address (
+    cst_address numeric(30,0) DEFAULT nextval(('s_cst_address'::text)::regclass) NOT NULL,
+    customer numeric(30,0),
+    zip character varying(20),
+    house character varying(100),
+    address character varying(100),
+    county character varying(100),
+    parish character varying(100),
+    town_county character varying(100),
+    address_type numeric(30,0),
+    phone character varying(20),
+    sms character varying(20),
+    mobile character varying(20),
+    email character varying(30),
+    note character varying(50),
+    country numeric(30,0),
+    created timestamp without time zone,
+    updated timestamp without time zone,
+    created_by numeric(30,0),
+    updated_by numeric(30,0)
+);
+
+
+ALTER TABLE public.cst_address OWNER TO postgres;
+
+--
+-- Name: cst_app_session; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE cst_app_session (
+    cst_app_session numeric(30,0) DEFAULT nextval(('s_cst_app_session'::text)::regclass) NOT NULL,
+    customer numeric(30,0),
+    cst_user numeric(30,0),
+    session_id character varying(200),
+    session_start timestamp without time zone,
+    session_end timestamp without time zone,
+    last_action timestamp without time zone,
+    app_id character varying(10),
+    status_type numeric(30,0)
+);
+
+
+ALTER TABLE public.cst_app_session OWNER TO postgres;
+
+--
+-- Name: cst_state_type; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE cst_state_type (
+    cst_state_type numeric(30,0) DEFAULT nextval(('s_cst_state_type'::text)::regclass) NOT NULL,
+    name character varying(100)
+);
+
+
+ALTER TABLE public.cst_state_type OWNER TO postgres;
+
+--
+-- Name: cst_type; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE cst_type (
+    cst_type numeric(30,0) NOT NULL,
+    name character varying(100)
+);
+
+
+ALTER TABLE public.cst_type OWNER TO postgres;
+
+--
+-- Name: cst_type_atr_type; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE cst_type_atr_type (
+    cst_type_atr_type numeric(30,0) DEFAULT nextval(('s_cst_type_atr_type'::text)::regclass) NOT NULL,
+    cst_type numeric(30,0),
+    customer_atr_type numeric(30,0),
+    active character varying(1)
+);
+
+
+ALTER TABLE public.cst_type_atr_type OWNER TO postgres;
+
+--
+-- Name: cst_user; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE cst_user (
+    cst_user numeric(30,0) DEFAULT nextval(('s_cst_user'::text)::regclass) NOT NULL,
+    customer numeric(30,0),
+    username character varying(20),
+    passw character varying(300),
+    user_status_type numeric(30,0),
+    user_status_date timestamp without time zone,
+    created timestamp without time zone,
+    updated timestamp without time zone,
+    created_by numeric(30,0),
+    updated_by numeric(30,0),
+    last_session numeric(30,0),
+    contact_email character varying(30)
+);
+
+
+ALTER TABLE public.cst_user OWNER TO postgres;
+
+--
+-- Name: cust_event_atrib; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE cust_event_atrib (
+    cust_event_atrib numeric(30,0) DEFAULT nextval(('s_cust_event_atrib'::text)::regclass) NOT NULL,
+    cust_event_atrib_value numeric(30,0),
+    cust_event_atrib_type numeric(30,0),
+    customer_event numeric(30,0),
+    value_text character varying(300),
+    selectable character varying(1),
+    type_name character varying(100),
+    can_change character varying(1),
+    created_by numeric(30,0),
+    updated_by numeric(30,0),
+    orderb numeric(30,0),
+    created timestamp without time zone,
+    updated timestamp without time zone
+);
+
+
+ALTER TABLE public.cust_event_atrib OWNER TO postgres;
+
+--
+-- Name: cust_event_atrib_type; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE cust_event_atrib_type (
+    cust_event_atrib_type numeric(30,0) NOT NULL,
+    name character varying(100),
+    description character varying(300),
+    required character varying(1),
+    uniq character varying(1),
+    selectable character varying(1),
+    orderb numeric(30,0),
+    active character varying(1),
+    created timestamp without time zone,
+    updated timestamp without time zone,
+    created_by numeric(30,0),
+    updated_by numeric(30,0),
+    can_change character varying(1),
+    default_value numeric(30,0),
+    default_value_text character varying(300)
+);
+
+
+ALTER TABLE public.cust_event_atrib_type OWNER TO postgres;
+
+--
+-- Name: cust_event_atrib_value; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE cust_event_atrib_value (
+    cust_event_atrib_value numeric(30,0) DEFAULT nextval(('s_cust_event_atrib_value'::text)::regclass) NOT NULL,
+    cust_event_atrib_type numeric(30,0),
+    value_text character varying(300),
+    orderb numeric(30,0),
+    active character varying(1),
+    created timestamp without time zone,
+    updated timestamp without time zone,
+    created_by numeric(30,0),
+    updated_by numeric(30,0)
+);
+
+
+ALTER TABLE public.cust_event_atrib_value OWNER TO postgres;
+
+--
+-- Name: cust_event_class; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE cust_event_class (
+    cust_event_class numeric(30,0) DEFAULT nextval(('s_cust_event_class'::text)::regclass) NOT NULL,
+    name character varying(100),
+    description character varying(300)
+);
+
+
+ALTER TABLE public.cust_event_class OWNER TO postgres;
+
+--
+-- Name: cust_event_type; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE cust_event_type (
+    cust_event_type numeric(30,0) DEFAULT nextval(('s_cust_event_type'::text)::regclass) NOT NULL,
+    cust_event_class numeric(30,0),
+    name character varying(200),
+    description character varying(300)
+);
+
+
+ALTER TABLE public.cust_event_type OWNER TO postgres;
+
+--
+-- Name: cust_message_status_type; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE cust_message_status_type (
+    cust_message_status_type numeric(30,0) NOT NULL,
+    name character varying(100)
+);
+
+
+ALTER TABLE public.cust_message_status_type OWNER TO postgres;
+
+--
+-- Name: cust_message_type; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE cust_message_type (
+    cust_message_type numeric(30,0) NOT NULL,
+    name character varying(100)
+);
+
+
+ALTER TABLE public.cust_message_type OWNER TO postgres;
+
+--
+-- Name: customer; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE customer (
+    customer numeric(30,0) DEFAULT nextval(('customer_id'::text)::regclass) NOT NULL,
+    first_name character varying(100),
+    last_name character varying(100),
+    identity_code character varying(20),
+    note character varying(1000),
+    created timestamp without time zone,
+    updated timestamp without time zone,
+    created_by numeric(30,0),
+    updated_by numeric(30,0),
+    birth_date timestamp without time zone,
+    cst_type numeric(2,0),
+    cst_state_type numeric(2,0)
+);
+
+
+ALTER TABLE public.customer OWNER TO postgres;
+
+--
+-- Name: customer_atr_type; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE customer_atr_type (
+    customer_atr_type numeric(30,0) NOT NULL,
+    name character varying(100),
+    description character varying(300),
+    required character varying(1),
+    uniq character varying(1),
+    selectable character varying(1),
+    orderb numeric(30,0),
+    active character varying(1),
+    created timestamp without time zone,
+    updated timestamp without time zone,
+    created_by numeric(30,0),
+    updated_by numeric(30,0),
+    can_change character varying(1),
+    default_value numeric(30,0),
+    default_value_text character varying(300)
+);
+
+
+ALTER TABLE public.customer_atr_type OWNER TO postgres;
+
+--
+-- Name: customer_atr_type_value; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE customer_atr_type_value (
+    customer_atr_type_value numeric(30,0) DEFAULT nextval(('s_customer_atr_type_value'::text)::regclass) NOT NULL,
+    customer_atr_type numeric(30,0),
+    value_text character varying(300),
+    orderb numeric(30,0),
+    active character varying(1),
+    created timestamp without time zone,
+    updated timestamp without time zone,
+    created_by numeric(30,0),
+    updated_by numeric(30,0)
+);
+
+
+ALTER TABLE public.customer_atr_type_value OWNER TO postgres;
+
+--
+-- Name: customer_attribute; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE customer_attribute (
+    customer_attribute numeric(30,0) DEFAULT nextval(('s_customer_attribute'::text)::regclass) NOT NULL,
+    customer_atr_type_value numeric(30,0),
+    customer_atr_type numeric(30,0),
+    customer numeric(30,0),
+    value_text character varying(300),
+    selectable character varying(1),
+    type_name character varying(100),
+    can_change character varying(1),
+    orderb numeric(30,0),
+    created_by numeric(30,0),
+    updated_by numeric(30,0),
+    created timestamp without time zone,
+    updated timestamp without time zone
+);
+
+
+ALTER TABLE public.customer_attribute OWNER TO postgres;
+
+--
+-- Name: customer_event; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE customer_event (
+    customer_event numeric(30,0) DEFAULT nextval(('s_customer_event'::text)::regclass) NOT NULL,
+    project numeric(30,0),
+    struct_unit numeric(30,0),
+    order_ numeric(30,0),
+    customer numeric(30,0),
+    cust_event_type numeric(30,0),
+    subject character varying(300),
+    value_text character varying(1000),
+    created timestamp without time zone,
+    created_by numeric(30,0),
+    updated timestamp without time zone,
+    updated_by numeric(30,0)
+);
+
+
+ALTER TABLE public.customer_event OWNER TO postgres;
+
+--
+-- Name: customer_group; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE customer_group (
+    customer_group numeric(30,0) DEFAULT nextval(('s_customer_group'::text)::regclass) NOT NULL,
+    customer numeric(30,0),
+    c_group numeric(30,0),
+    created timestamp without time zone,
+    created_by numeric(30,0)
+);
+
+
+ALTER TABLE public.customer_group OWNER TO postgres;
+
+--
+-- Name: customer_id; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE customer_id
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.customer_id OWNER TO postgres;
+
+--
+-- Name: customer_id; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('customer_id', 1, false);
+
+
+--
+-- Name: customer_message; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE customer_message (
+    customer_message numeric(30,0) DEFAULT nextval(('s_customer_message'::text)::regclass) NOT NULL,
+    cust_message_type numeric(30,0),
+    customer numeric(30,0),
+    cust_message_status_type numeric(30,0),
+    subject character varying(300),
+    value_text character varying(600),
+    orderb numeric(30,0),
+    created timestamp without time zone,
+    created_by numeric(30,0),
+    show_start timestamp without time zone,
+    show_end timestamp without time zone
+);
+
+
+ALTER TABLE public.customer_message OWNER TO postgres;
+
+--
+-- Name: emp_app_session; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE emp_app_session (
+    emp_app_session numeric(30,0) DEFAULT nextval(('s_emp_app_session'::text)::regclass) NOT NULL,
+    employee numeric(30,0),
+    emp_user numeric(30,0),
+    session_id character varying(200),
+    session_start timestamp without time zone,
+    session_end timestamp without time zone,
+    last_action timestamp without time zone,
+    app_id character varying(10),
+    status_type numeric(30,0)
+);
+
+
+ALTER TABLE public.emp_app_session OWNER TO postgres;
+
+--
+-- Name: emp_role; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE emp_role (
+    emp_role numeric(30,0) NOT NULL,
+    name character varying(100)
+);
+
+
+ALTER TABLE public.emp_role OWNER TO postgres;
+
+--
+-- Name: emp_user; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE emp_user (
+    emp_user numeric(30,0) DEFAULT nextval(('s_emp_user'::text)::regclass) NOT NULL,
+    employee numeric(30,0),
+    username character varying(20),
+    passw character varying(300),
+    user_status_type numeric(30,0),
+    created timestamp without time zone,
+    created_by numeric(30,0),
+    updated timestamp without time zone,
+    updated_by numeric(30,0),
+    last_session numeric(30,0),
+    contact_email character varying(20)
+);
+
+
+ALTER TABLE public.emp_user OWNER TO postgres;
+
+--
+-- Name: employee; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE employee (
+    employee numeric(30,0) DEFAULT nextval(('s_employee'::text)::regclass) NOT NULL,
+    first_name character varying(50),
+    last_name character varying(50),
+    emp_code character varying(20),
+    created_by numeric(30,0),
+    updated_by numeric(30,0),
+    current_position numeric(30,0),
+    current_manager numeric(30,0),
+    current_struct_unit numeric(30,0),
+    created timestamp without time zone,
+    updated timestamp without time zone,
+    emp_role numeric(30,0)
+);
+
+
+ALTER TABLE public.employee OWNER TO postgres;
+
+--
+-- Name: employee_struct_unit; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE employee_struct_unit (
+    employee_struct_unit numeric(30,0) DEFAULT nextval(('s_employee_struct_unit'::text)::regclass) NOT NULL,
+    employee numeric(30,0) NOT NULL,
+    struct_unit numeric(30,0) NOT NULL,
+    relation_type numeric(30,0) NOT NULL,
+    active character varying(1),
+    valid_from timestamp without time zone,
+    valid_to timestamp without time zone,
+    created timestamp without time zone,
+    created_by numeric(30,0),
+    updated timestamp without time zone,
+    updated_by numeric(30,0)
+);
+
+
+ALTER TABLE public.employee_struct_unit OWNER TO postgres;
+
+--
+-- Name: ent_address; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE ent_address (
+    ent_address numeric(30,0) DEFAULT nextval(('s_ent_address'::text)::regclass) NOT NULL,
+    enterprise numeric(30,0),
+    zip character varying(20),
+    house character varying(100),
+    address character varying(100),
+    county character varying(100),
+    parish character varying(100),
+    town_county character varying(100),
+    address_type numeric(30,0),
+    phone character varying(20),
+    sms character varying(20),
+    mobile character varying(20),
+    email character varying(30),
+    note character varying(50),
+    country numeric(30,0),
+    created timestamp without time zone,
+    updated timestamp without time zone,
+    created_by numeric(30,0),
+    updated_by numeric(30,0)
+);
+
+
+ALTER TABLE public.ent_address OWNER TO postgres;
+
+--
+-- Name: ent_customer_relation_type; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE ent_customer_relation_type (
+    ent_customer_relation_type numeric(30,0) NOT NULL,
+    name character varying(100),
+    description character varying(300)
+);
+
+
+ALTER TABLE public.ent_customer_relation_type OWNER TO postgres;
+
+--
+-- Name: ent_relation; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE ent_relation (
+    ent_relation numeric(30,0) DEFAULT nextval(('s_ent_relation'::text)::regclass) NOT NULL,
+    enterprise numeric(30,0),
+    enterprise1 numeric(30,0),
+    note character varying(200),
+    ent_relation_type numeric(30,0)
+);
+
+
+ALTER TABLE public.ent_relation OWNER TO postgres;
+
+--
+-- Name: ent_relation_type; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE ent_relation_type (
+    ent_relation_type numeric(30,0) NOT NULL,
+    name character varying(100),
+    description character varying(300)
+);
+
+
+ALTER TABLE public.ent_relation_type OWNER TO postgres;
+
+--
+-- Name: ent_type; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE ent_type (
+    ent_type numeric(30,0) DEFAULT nextval(('s_ent_type'::text)::regclass) NOT NULL,
+    name character varying(100),
+    description character varying(300)
+);
+
+
+ALTER TABLE public.ent_type OWNER TO postgres;
+
+--
+-- Name: enterprise; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE enterprise (
+    enterprise numeric(30,0) DEFAULT nextval(('s_enterprise'::text)::regclass) NOT NULL,
+    ent_type numeric(30,0),
+    short_name character varying(100),
+    long_name character varying(100),
+    identity_code character varying(40),
+    note character varying(1000),
+    created timestamp without time zone,
+    updated timestamp without time zone,
+    created_by numeric(30,0),
+    updated_by numeric(30,0),
+    ent_state_type numeric(30,0)
+);
+
+
+ALTER TABLE public.enterprise OWNER TO postgres;
+
+--
+-- Name: enterprise_customer; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE enterprise_customer (
+    enterprise_customer numeric(30,0) DEFAULT nextval(('s_enterprise_customer'::text)::regclass) NOT NULL,
+    customer numeric(30,0),
+    enterprise numeric(30,0),
+    created timestamp without time zone,
+    created_by numeric(30,0),
+    relation_type numeric(30,0),
+    note character varying(100)
+);
+
+
+ALTER TABLE public.enterprise_customer OWNER TO postgres;
+
+--
+-- Name: order_; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE order_ (
+    order_ numeric(30,0) DEFAULT nextval(('s_order'::text)::regclass) NOT NULL,
+    order_status_type numeric(30,0),
+    order_status_date timestamp without time zone,
+    e_shop_chart numeric(30,0),
+    contract numeric(30,0),
+    customer numeric(30,0),
+    order_number character varying(20),
+    note character varying(300),
+    shipping_address numeric(30,0),
+    created_by numeric(30,0),
+    updated_by numeric(30,0),
+    created timestamp without time zone,
+    updated timestamp without time zone,
+    customer_confirmed timestamp without time zone,
+    customer_confirmed_by numeric(30,0),
+    payd timestamp without time zone,
+    shipped timestamp without time zone,
+    confirmed timestamp without time zone,
+    confirmed_by numeric(30,0),
+    completed timestamp without time zone,
+    completed_by numeric(30,0),
+    order_type numeric(30,0),
+    d1 timestamp without time zone,
+    n1 numeric(30,0),
+    a1 character varying(50),
+    d2 timestamp without time zone,
+    n2 numeric(30,0),
+    a2 character varying(50),
+    struct_unit numeric(30,0),
+    offer numeric(30,0),
+    project numeric(30,0),
+    payment_type numeric(30,0)
+);
+
+
+ALTER TABLE public.order_ OWNER TO postgres;
+
+--
+-- Name: order_customer; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE order_customer (
+    order_customer numeric(30,0) DEFAULT nextval(('s_order_customer'::text)::regclass) NOT NULL,
+    customer numeric(30,0),
+    order_ numeric(30,0),
+    created timestamp without time zone,
+    created_by numeric(30,0),
+    relation_type numeric(30,0)
+);
+
+
+ALTER TABLE public.order_customer OWNER TO postgres;
+
+--
+-- Name: order_item; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE order_item (
+    order_item numeric(30,0) DEFAULT nextval(('s_order_item'::text)::regclass) NOT NULL,
+    order_ numeric(30,0),
+    item numeric(30,0),
+    product numeric(30,0),
+    item_count numeric(30,0),
+    item_price numeric(30,6),
+    item_type numeric(30,0),
+    item_added timestamp without time zone
+);
+
+
+ALTER TABLE public.order_item OWNER TO postgres;
+
+--
+-- Name: order_relation; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE order_relation (
+    order_relation numeric(30,0) DEFAULT nextval(('s_order_relation'::text)::regclass) NOT NULL,
+    order_ numeric(30,0),
+    order1 numeric(30,0),
+    note character varying(200),
+    order_relation_type numeric(30,0),
+    created timestamp without time zone,
+    created_by numeric(30,0)
+);
+
+
+ALTER TABLE public.order_relation OWNER TO postgres;
+
+--
+-- Name: order_relation_type; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE order_relation_type (
+    order_relation_type numeric(30,0) NOT NULL,
+    name character varying(100),
+    description character varying(300)
+);
+
+
+ALTER TABLE public.order_relation_type OWNER TO postgres;
+
+--
+-- Name: order_status; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE order_status (
+    order_status numeric(30,0) DEFAULT nextval(('s_order_status'::text)::regclass) NOT NULL,
+    order_ numeric(30,0),
+    valid_from timestamp without time zone,
+    valid_to timestamp without time zone,
+    created_by numeric(30,0),
+    order_status_type numeric(30,0),
+    created timestamp without time zone,
+    ended timestamp without time zone,
+    ended_by numeric(30,0)
+);
+
+
+ALTER TABLE public.order_status OWNER TO postgres;
+
+--
+-- Name: order_status_class; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE order_status_class (
+    order_status_class numeric(30,0) DEFAULT nextval(('s_order_status_class'::text)::regclass) NOT NULL,
+    name character varying(100)
+);
+
+
+ALTER TABLE public.order_status_class OWNER TO postgres;
+
+--
+-- Name: order_status_type; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE order_status_type (
+    order_status_type numeric(30,0) DEFAULT nextval(('s_order_status_type'::text)::regclass) NOT NULL,
+    order_status_class numeric(30,0),
+    name character varying(100)
+);
+
+
+ALTER TABLE public.order_status_type OWNER TO postgres;
+
+--
+-- Name: order_type; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE order_type (
+    order_type numeric(30,0) NOT NULL,
+    name character varying(100),
+    description character varying(300)
+);
+
+
+ALTER TABLE public.order_type OWNER TO postgres;
+
+--
+-- Name: paym_graph; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE paym_graph (
+    paym_graph numeric(30,0) DEFAULT nextval(('s_paym_graph'::text)::regclass) NOT NULL,
+    payment_type numeric(30,0),
+    customer numeric(30,0),
+    order_ numeric(30,0),
+    payment_total numeric(32,16),
+    due_date timestamp without time zone,
+    created timestamp without time zone,
+    created_by numeric(30,0),
+    updated timestamp without time zone,
+    updated_by numeric(30,0),
+    contract numeric(30,0),
+    status numeric(30,0)
+);
+
+
+ALTER TABLE public.paym_graph OWNER TO postgres;
+
+--
+-- Name: paym_part; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE paym_part (
+    paym_part numeric(30,0) DEFAULT nextval(('s_paym_part'::text)::regclass) NOT NULL,
+    paym_graph numeric(30,0),
+    paym_part_type numeric(30,0),
+    paym_amount numeric(32,16)
+);
+
+
+ALTER TABLE public.paym_part OWNER TO postgres;
+
+--
+-- Name: paym_part_type; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE paym_part_type (
+    paym_part_type numeric(30,0) NOT NULL,
+    name character varying(100),
+    description character varying(300)
+);
+
+
+ALTER TABLE public.paym_part_type OWNER TO postgres;
+
+--
+-- Name: payment_type; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE payment_type (
+    payment_type numeric(30,0) NOT NULL,
+    name character varying(100)
+);
+
+
+ALTER TABLE public.payment_type OWNER TO postgres;
+
+--
+-- Name: product; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE product (
+    product numeric(30,0) DEFAULT nextval(('s_product'::text)::regclass) NOT NULL,
+    enterprise numeric(30,0),
+    product_type numeric(30,0),
+    created_by numeric(30,0),
+    catalog numeric(30,0),
+    code character varying(20),
+    code1 character varying(20),
+    name character varying(100),
+    description character varying(300),
+    created timestamp without time zone,
+    updated timestamp without time zone,
+    updated_by numeric(30,0),
+    price numeric(30,6),
+    price2 numeric(30,6),
+    price3 numeric(30,6),
+    product_status_type numeric(30,0),
+    producer character varying(200)
+);
+
+
+ALTER TABLE public.product OWNER TO postgres;
+
+--
+-- Name: product_atr_type; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE product_atr_type (
+    product_atr_type numeric(30,0) NOT NULL,
+    name character varying(100),
+    description character varying(300),
+    required character varying(1),
+    uniq character varying(1),
+    selectable character varying(1),
+    orderb numeric(30,0),
+    active character varying(1),
+    created timestamp without time zone,
+    updated timestamp without time zone,
+    created_by numeric(30,0),
+    updated_by numeric(30,0),
+    can_change character varying(1),
+    default_value numeric(30,0),
+    default_value_text character varying(300)
+);
+
+
+ALTER TABLE public.product_atr_type OWNER TO postgres;
+
+--
+-- Name: product_atr_type_value; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE product_atr_type_value (
+    product_atr_type_value numeric(30,0) DEFAULT nextval(('s_product_atr_type_value'::text)::regclass) NOT NULL,
+    product_atr_type numeric(30,0),
+    value_text character varying(300),
+    orderb numeric(30,0),
+    active character varying(1),
+    created timestamp without time zone,
+    updated timestamp without time zone,
+    created_by numeric(30,0),
+    updated_by numeric(30,0)
+);
+
+
+ALTER TABLE public.product_atr_type_value OWNER TO postgres;
+
+--
+-- Name: product_attribute; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE product_attribute (
+    product_attribute numeric(30,0) DEFAULT nextval(('s_product_attribute'::text)::regclass) NOT NULL,
+    product_atr_type_value numeric(30,0),
+    product_atr_type numeric(30,0),
+    product numeric(30,0),
+    value_text character varying(300),
+    selectable character varying(1),
+    type_name character varying(100),
+    can_change character varying(1),
+    orderb numeric(30,0),
+    created_by numeric(30,0),
+    updated_by numeric(30,0),
+    created timestamp without time zone,
+    updated timestamp without time zone
+);
+
+
+ALTER TABLE public.product_attribute OWNER TO postgres;
+
+--
+-- Name: product_catalog; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE product_catalog (
+    product_catalog numeric(30,0) DEFAULT nextval(('s_product_catalog'::text)::regclass) NOT NULL,
+    upper_catalog numeric(30,0),
+    cat_level numeric(30,0),
+    customer numeric(30,0),
+    catalog_type numeric(30,0),
+    name character varying(100),
+    description character varying(500),
+    item_count numeric(30,0),
+    last_item_updated timestamp without time zone,
+    last_item_created timestamp without time zone,
+    created_by numeric(30,0),
+    updated_by numeric(30,0),
+    created timestamp without time zone,
+    updated timestamp without time zone,
+    status_type numeric(30,0),
+    catalog_code character varying(20),
+    struct_unit numeric(30,0)
+);
+
+
+ALTER TABLE public.product_catalog OWNER TO postgres;
+
+--
+-- Name: product_catalog_atr_type; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE product_catalog_atr_type (
+    product_catalog_atr_type numeric(30,0) DEFAULT nextval(('s_product_catalog_atr_type'::text)::regclass) NOT NULL,
+    product_catalog numeric(30,0),
+    product_atr_type numeric(30,0),
+    valid_from timestamp without time zone,
+    valid_to timestamp without time zone,
+    orderb numeric(30,0),
+    status numeric(30,0)
+);
+
+
+ALTER TABLE public.product_catalog_atr_type OWNER TO postgres;
+
+--
+-- Name: product_catalog_relation; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE product_catalog_relation (
+    product_catalog_relation numeric(30,0) DEFAULT nextval(('s_product_catalog_relation'::text)::regclass) NOT NULL,
+    upper_catalog numeric(30,0),
+    lower_catalog numeric(30,0),
+    note character varying(100),
+    relation_type numeric(30,0)
+);
+
+
+ALTER TABLE public.product_catalog_relation OWNER TO postgres;
+
+--
+-- Name: product_product_catalog; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE product_product_catalog (
+    product_product_catalog numeric(30,0) DEFAULT nextval(('s_product_product_catalog'::text)::regclass) NOT NULL,
+    product_catalog numeric(30,0),
+    product numeric(30,0),
+    note character varying(100),
+    relation_type numeric(30,0),
+    created timestamp without time zone,
+    created_by numeric(30,0),
+    deleted timestamp without time zone,
+    deleted_by numeric(30,0)
+);
+
+
+ALTER TABLE public.product_product_catalog OWNER TO postgres;
+
+--
+-- Name: project; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE project (
+    project numeric(30,0) DEFAULT nextval(('s_project'::text)::regclass) NOT NULL,
+    project_status_type numeric(30,0),
+    project_type numeric(30,0),
+    struct_unit numeric(30,0),
+    manager numeric(30,0),
+    last_status_change timestamp without time zone,
+    name character varying(200),
+    description character varying(300)
+);
+
+
+ALTER TABLE public.project OWNER TO postgres;
+
+--
+-- Name: project_relation; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE project_relation (
+    project_relation numeric(30,0) DEFAULT nextval(('s_project_relation'::text)::regclass) NOT NULL,
+    project numeric(30,0),
+    project1 numeric(30,0),
+    note character varying(100),
+    relation_type numeric(30,0),
+    created_by numeric(30,0),
+    created timestamp without time zone
+);
+
+
+ALTER TABLE public.project_relation OWNER TO postgres;
+
+--
+-- Name: project_relation_type; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE project_relation_type (
+    project_relation_type numeric(30,0) NOT NULL,
+    name character varying(100)
+);
+
+
+ALTER TABLE public.project_relation_type OWNER TO postgres;
+
+--
+-- Name: project_status; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE project_status (
+    project_status numeric(30,0) DEFAULT nextval(('s_project_status'::text)::regclass) NOT NULL,
+    project_status_type numeric(30,0),
+    project numeric(30,0),
+    status_start timestamp without time zone,
+    status_end timestamp without time zone,
+    prev_status numeric(30,0),
+    created_by numeric(30,0),
+    created timestamp without time zone
+);
+
+
+ALTER TABLE public.project_status OWNER TO postgres;
+
+--
+-- Name: project_status_type; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE project_status_type (
+    project_status_type numeric(30,0) NOT NULL,
+    name character varying(100),
+    description character varying(300)
+);
+
+
+ALTER TABLE public.project_status_type OWNER TO postgres;
+
+--
+-- Name: project_type; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE project_type (
+    project_type numeric(30,0) NOT NULL,
+    name character varying(200),
+    description character varying(300)
+);
+
+
+ALTER TABLE public.project_type OWNER TO postgres;
+
+--
+-- Name: prop_type_atrib; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE prop_type_atrib (
+    prop_type_atrib numeric(30,0) DEFAULT nextval(('s_prop_type_atrib'::text)::regclass) NOT NULL,
+    property_type numeric(30,0),
+    property_atr_type numeric(30,0),
+    active character varying(1)
+);
+
+
+ALTER TABLE public.prop_type_atrib OWNER TO postgres;
+
+--
+-- Name: property; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE property (
+    property numeric(30,0) DEFAULT nextval(('s_property'::text)::regclass) NOT NULL,
+    property_type numeric(30,0),
+    property_status_type numeric(30,0),
+    name character varying(100),
+    description character varying(1000),
+    note character varying(200),
+    value_amount numeric(32,16),
+    created timestamp without time zone,
+    updated timestamp without time zone,
+    created_by numeric(30,0),
+    updated_by numeric(30,0)
+);
+
+
+ALTER TABLE public.property OWNER TO postgres;
+
+--
+-- Name: property_atr_type; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE property_atr_type (
+    property_atr_type numeric(30,0) NOT NULL,
+    name character varying(100),
+    description character varying(300),
+    required character varying(1),
+    uniq character varying(1),
+    selectable character varying(1),
+    orderb numeric(30,0),
+    active character varying(1),
+    created timestamp without time zone,
+    updated timestamp without time zone,
+    created_by numeric(30,0),
+    updated_by numeric(30,0),
+    can_change character varying(1),
+    default_value numeric(30,0),
+    default_value_text character varying(300)
+);
+
+
+ALTER TABLE public.property_atr_type OWNER TO postgres;
+
+--
+-- Name: property_atr_value; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE property_atr_value (
+    property_atr_value numeric(30,0) DEFAULT nextval(('s_property_atrib_value'::text)::regclass) NOT NULL,
+    property_atr_type numeric(30,0),
+    value_text character varying(300),
+    orderb numeric(30,0),
+    active character varying(1),
+    created timestamp without time zone,
+    updated timestamp without time zone,
+    created_by numeric(30,0),
+    updated_by numeric(30,0)
+);
+
+
+ALTER TABLE public.property_atr_value OWNER TO postgres;
+
+--
+-- Name: property_attribute; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE property_attribute (
+    property_attribute numeric(30,0) DEFAULT nextval(('s_property_attribute'::text)::regclass) NOT NULL,
+    property_atr_value numeric(30,0),
+    property_atr_type numeric(30,0),
+    property numeric(30,0),
+    value_text character varying(300),
+    selectable character varying(1),
+    type_name character varying(100),
+    can_change character varying(1),
+    orderb numeric(30,0),
+    created_by numeric(30,0),
+    updated_by numeric(30,0),
+    created timestamp without time zone,
+    updated timestamp without time zone
+);
+
+
+ALTER TABLE public.property_attribute OWNER TO postgres;
+
+--
+-- Name: property_class; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE property_class (
+    property_class numeric(30,0) NOT NULL,
+    name character varying(100),
+    description character varying(300)
+);
+
+
+ALTER TABLE public.property_class OWNER TO postgres;
+
+--
+-- Name: property_relation; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE property_relation (
+    property_relation numeric(30,0) DEFAULT nextval(('s_property_relation'::text)::regclass) NOT NULL,
+    property numeric(30,0),
+    property1 numeric(30,0),
+    note character varying(100),
+    status numeric(30,0),
+    relation_type numeric(30,0),
+    created_by numeric(30,0),
+    updated_by numeric(30,0),
+    created timestamp without time zone,
+    updated timestamp without time zone
+);
+
+
+ALTER TABLE public.property_relation OWNER TO postgres;
+
+--
+-- Name: property_status; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE property_status (
+    property_status numeric(30,0) DEFAULT nextval(('s_property_status'::text)::regclass) NOT NULL,
+    property_status_type numeric(30,0),
+    property numeric(30,0),
+    status_start timestamp without time zone,
+    status_end timestamp without time zone,
+    prev_status numeric(30,0),
+    created_by numeric(30,0),
+    created timestamp without time zone
+);
+
+
+ALTER TABLE public.property_status OWNER TO postgres;
+
+--
+-- Name: property_status_type; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE property_status_type (
+    property_status_type numeric(30,0) NOT NULL,
+    name character varying(100),
+    description character varying(300)
+);
+
+
+ALTER TABLE public.property_status_type OWNER TO postgres;
+
+--
+-- Name: property_type; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE property_type (
+    property_type numeric(30,0) NOT NULL,
+    name character varying(100),
+    description character varying(300),
+    property_class numeric(30,0)
+);
+
+
+ALTER TABLE public.property_type OWNER TO postgres;
+
+--
+-- Name: s_c_group; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_c_group
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_c_group OWNER TO postgres;
+
+--
+-- Name: s_c_group; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_c_group', 1, false);
+
+
+--
+-- Name: s_catalog_type; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_catalog_type
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_catalog_type OWNER TO postgres;
+
+--
+-- Name: s_catalog_type; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_catalog_type', 1, false);
+
+
+--
+-- Name: s_comm_device; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_comm_device
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_comm_device OWNER TO postgres;
+
+--
+-- Name: s_comm_device; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_comm_device', 1, false);
+
+
+--
+-- Name: s_comm_device_type; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_comm_device_type
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_comm_device_type OWNER TO postgres;
+
+--
+-- Name: s_comm_device_type; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_comm_device_type', 1, false);
+
+
+--
+-- Name: s_contract; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_contract
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_contract OWNER TO postgres;
+
+--
+-- Name: s_contract; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_contract', 1, false);
+
+
+--
+-- Name: s_contract_atr_type_value; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_contract_atr_type_value
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_contract_atr_type_value OWNER TO postgres;
+
+--
+-- Name: s_contract_atr_type_value; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_contract_atr_type_value', 1, false);
+
+
+--
+-- Name: s_contract_attribute; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_contract_attribute
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_contract_attribute OWNER TO postgres;
+
+--
+-- Name: s_contract_attribute; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_contract_attribute', 1, false);
+
+
+--
+-- Name: s_contract_manager; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_contract_manager
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_contract_manager OWNER TO postgres;
+
+--
+-- Name: s_contract_manager; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_contract_manager', 1, false);
+
+
+--
+-- Name: s_contract_property; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_contract_property
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_contract_property OWNER TO postgres;
+
+--
+-- Name: s_contract_property; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_contract_property', 1, false);
+
+
+--
+-- Name: s_contract_relation; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_contract_relation
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_contract_relation OWNER TO postgres;
+
+--
+-- Name: s_contract_relation; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_contract_relation', 1, false);
+
+
+--
+-- Name: s_contract_status; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_contract_status
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_contract_status OWNER TO postgres;
+
+--
+-- Name: s_contract_status; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_contract_status', 1, false);
+
+
+--
+-- Name: s_contract_status_type; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_contract_status_type
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_contract_status_type OWNER TO postgres;
+
+--
+-- Name: s_contract_status_type; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_contract_status_type', 1, false);
+
+
+--
+-- Name: s_contract_type; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_contract_type
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_contract_type OWNER TO postgres;
+
+--
+-- Name: s_contract_type; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_contract_type', 1, false);
+
+
+--
+-- Name: s_contract_type_atrib; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_contract_type_atrib
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_contract_type_atrib OWNER TO postgres;
+
+--
+-- Name: s_contract_type_atrib; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_contract_type_atrib', 1, false);
+
+
+--
+-- Name: s_cst_address; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_cst_address
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_cst_address OWNER TO postgres;
+
+--
+-- Name: s_cst_address; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_cst_address', 1, false);
+
+
+--
+-- Name: s_cst_app_session; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_cst_app_session
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_cst_app_session OWNER TO postgres;
+
+--
+-- Name: s_cst_app_session; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_cst_app_session', 1, false);
+
+
+--
+-- Name: s_cst_state_type; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_cst_state_type
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_cst_state_type OWNER TO postgres;
+
+--
+-- Name: s_cst_state_type; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_cst_state_type', 1, false);
+
+
+--
+-- Name: s_cst_type_atr_type; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_cst_type_atr_type
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_cst_type_atr_type OWNER TO postgres;
+
+--
+-- Name: s_cst_type_atr_type; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_cst_type_atr_type', 1, false);
+
+
+--
+-- Name: s_cst_user; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_cst_user
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_cst_user OWNER TO postgres;
+
+--
+-- Name: s_cst_user; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_cst_user', 1, false);
+
+
+--
+-- Name: s_cust_event_atrib; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_cust_event_atrib
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_cust_event_atrib OWNER TO postgres;
+
+--
+-- Name: s_cust_event_atrib; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_cust_event_atrib', 1, false);
+
+
+--
+-- Name: s_cust_event_atrib_value; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_cust_event_atrib_value
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_cust_event_atrib_value OWNER TO postgres;
+
+--
+-- Name: s_cust_event_atrib_value; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_cust_event_atrib_value', 1, false);
+
+
+--
+-- Name: s_cust_event_class; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_cust_event_class
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_cust_event_class OWNER TO postgres;
+
+--
+-- Name: s_cust_event_class; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_cust_event_class', 1, false);
+
+
+--
+-- Name: s_cust_event_type; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_cust_event_type
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_cust_event_type OWNER TO postgres;
+
+--
+-- Name: s_cust_event_type; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_cust_event_type', 1, false);
+
+
+--
+-- Name: s_customer_atr_type_value; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_customer_atr_type_value
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_customer_atr_type_value OWNER TO postgres;
+
+--
+-- Name: s_customer_atr_type_value; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_customer_atr_type_value', 1, false);
+
+
+--
+-- Name: s_customer_attribute; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_customer_attribute
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_customer_attribute OWNER TO postgres;
+
+--
+-- Name: s_customer_attribute; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_customer_attribute', 1, false);
+
+
+--
+-- Name: s_customer_event; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_customer_event
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_customer_event OWNER TO postgres;
+
+--
+-- Name: s_customer_event; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_customer_event', 1, false);
+
+
+--
+-- Name: s_customer_group; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_customer_group
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_customer_group OWNER TO postgres;
+
+--
+-- Name: s_customer_group; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_customer_group', 1, false);
+
+
+--
+-- Name: s_customer_message; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_customer_message
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_customer_message OWNER TO postgres;
+
+--
+-- Name: s_customer_message; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_customer_message', 1, false);
+
+
+--
+-- Name: s_emp_app_session; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_emp_app_session
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_emp_app_session OWNER TO postgres;
+
+--
+-- Name: s_emp_app_session; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_emp_app_session', 1, false);
+
+
+--
+-- Name: s_emp_user; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_emp_user
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_emp_user OWNER TO postgres;
+
+--
+-- Name: s_emp_user; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_emp_user', 1, false);
+
+
+--
+-- Name: s_employee; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_employee
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_employee OWNER TO postgres;
+
+--
+-- Name: s_employee; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_employee', 1, false);
+
+
+--
+-- Name: s_employee_struct_unit; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_employee_struct_unit
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_employee_struct_unit OWNER TO postgres;
+
+--
+-- Name: s_employee_struct_unit; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_employee_struct_unit', 1, false);
+
+
+--
+-- Name: s_ent_address; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_ent_address
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_ent_address OWNER TO postgres;
+
+--
+-- Name: s_ent_address; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_ent_address', 1, false);
+
+
+--
+-- Name: s_ent_relation; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_ent_relation
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_ent_relation OWNER TO postgres;
+
+--
+-- Name: s_ent_relation; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_ent_relation', 1, false);
+
+
+--
+-- Name: s_ent_type; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_ent_type
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_ent_type OWNER TO postgres;
+
+--
+-- Name: s_ent_type; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_ent_type', 1, false);
+
+
+--
+-- Name: s_enterprise; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_enterprise
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_enterprise OWNER TO postgres;
+
+--
+-- Name: s_enterprise; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_enterprise', 1, false);
+
+
+--
+-- Name: s_enterprise_customer; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_enterprise_customer
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_enterprise_customer OWNER TO postgres;
+
+--
+-- Name: s_enterprise_customer; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_enterprise_customer', 1, false);
+
+
+--
+-- Name: s_order; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_order
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_order OWNER TO postgres;
+
+--
+-- Name: s_order; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_order', 1, false);
+
+
+--
+-- Name: s_order_customer; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_order_customer
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_order_customer OWNER TO postgres;
+
+--
+-- Name: s_order_customer; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_order_customer', 1, false);
+
+
+--
+-- Name: s_order_item; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_order_item
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_order_item OWNER TO postgres;
+
+--
+-- Name: s_order_item; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_order_item', 1, false);
+
+
+--
+-- Name: s_order_relation; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_order_relation
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_order_relation OWNER TO postgres;
+
+--
+-- Name: s_order_relation; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_order_relation', 1, false);
+
+
+--
+-- Name: s_order_status; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_order_status
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_order_status OWNER TO postgres;
+
+--
+-- Name: s_order_status; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_order_status', 1, false);
+
+
+--
+-- Name: s_order_status_class; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_order_status_class
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_order_status_class OWNER TO postgres;
+
+--
+-- Name: s_order_status_class; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_order_status_class', 1, false);
+
+
+--
+-- Name: s_order_status_type; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_order_status_type
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_order_status_type OWNER TO postgres;
+
+--
+-- Name: s_order_status_type; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_order_status_type', 1, false);
+
+
+--
+-- Name: s_paym_graph; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_paym_graph
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_paym_graph OWNER TO postgres;
+
+--
+-- Name: s_paym_graph; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_paym_graph', 1, false);
+
+
+--
+-- Name: s_paym_part; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_paym_part
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_paym_part OWNER TO postgres;
+
+--
+-- Name: s_paym_part; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_paym_part', 1, false);
+
+
+--
+-- Name: s_product; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_product
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_product OWNER TO postgres;
+
+--
+-- Name: s_product; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_product', 1, false);
+
+
+--
+-- Name: s_product_atr_type_value; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_product_atr_type_value
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_product_atr_type_value OWNER TO postgres;
+
+--
+-- Name: s_product_atr_type_value; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_product_atr_type_value', 1, false);
+
+
+--
+-- Name: s_product_attribute; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_product_attribute
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_product_attribute OWNER TO postgres;
+
+--
+-- Name: s_product_attribute; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_product_attribute', 1, false);
+
+
+--
+-- Name: s_product_catalog; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_product_catalog
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_product_catalog OWNER TO postgres;
+
+--
+-- Name: s_product_catalog; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_product_catalog', 1, false);
+
+
+--
+-- Name: s_product_catalog_atr_type; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_product_catalog_atr_type
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_product_catalog_atr_type OWNER TO postgres;
+
+--
+-- Name: s_product_catalog_atr_type; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_product_catalog_atr_type', 1, false);
+
+
+--
+-- Name: s_product_catalog_relation; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_product_catalog_relation
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_product_catalog_relation OWNER TO postgres;
+
+--
+-- Name: s_product_catalog_relation; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_product_catalog_relation', 1, false);
+
+
+--
+-- Name: s_product_product_catalog; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_product_product_catalog
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_product_product_catalog OWNER TO postgres;
+
+--
+-- Name: s_product_product_catalog; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_product_product_catalog', 1, false);
+
+
+--
+-- Name: s_project; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_project
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_project OWNER TO postgres;
+
+--
+-- Name: s_project; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_project', 1, false);
+
+
+--
+-- Name: s_project_relation; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_project_relation
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_project_relation OWNER TO postgres;
+
+--
+-- Name: s_project_relation; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_project_relation', 1, false);
+
+
+--
+-- Name: s_project_status; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_project_status
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_project_status OWNER TO postgres;
+
+--
+-- Name: s_project_status; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_project_status', 1, false);
+
+
+--
+-- Name: s_prop_type_atrib; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_prop_type_atrib
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_prop_type_atrib OWNER TO postgres;
+
+--
+-- Name: s_prop_type_atrib; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_prop_type_atrib', 1, false);
+
+
+--
+-- Name: s_property; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_property
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_property OWNER TO postgres;
+
+--
+-- Name: s_property; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_property', 1, false);
+
+
+--
+-- Name: s_property_atr_value; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_property_atr_value
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_property_atr_value OWNER TO postgres;
+
+--
+-- Name: s_property_atr_value; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_property_atr_value', 1, false);
+
+
+--
+-- Name: s_property_attribute; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_property_attribute
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_property_attribute OWNER TO postgres;
+
+--
+-- Name: s_property_attribute; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_property_attribute', 1, false);
+
+
+--
+-- Name: s_property_relation; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_property_relation
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_property_relation OWNER TO postgres;
+
+--
+-- Name: s_property_relation; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_property_relation', 1, false);
+
+
+--
+-- Name: s_property_status; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_property_status
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_property_status OWNER TO postgres;
+
+--
+-- Name: s_property_status; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_property_status', 1, false);
+
+
+--
+-- Name: s_struct_unit; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE s_struct_unit
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.s_struct_unit OWNER TO postgres;
+
+--
+-- Name: s_struct_unit; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('s_struct_unit', 1, false);
+
+
+--
+-- Name: struct_unit; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE struct_unit (
+    struct_unit numeric(30,0) DEFAULT nextval(('s_struct_unit'::text)::regclass) NOT NULL,
+    struct_unit_type numeric(30,0) NOT NULL,
+    unit_code character varying(20),
+    name character varying(300),
+    description character varying(1000),
+    upper_unit numeric(30,0),
+    name_in_en character varying(300)
+);
+
+
+ALTER TABLE public.struct_unit OWNER TO postgres;
+
+--
+-- Data for Name: c_group; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY c_group (c_group, struct_unit, name, description, created, created_by, updated, updated_by) FROM stdin;
+\.
+
+
+--
+-- Data for Name: catalog_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY catalog_type (catalog_type, name) FROM stdin;
+\.
+
+
+--
+-- Data for Name: comm_device; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY comm_device (comm_device, comm_device_type, customer, value_text, orderb, created) FROM stdin;
+\.
+
+
+--
+-- Data for Name: comm_device_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY comm_device_type (comm_device_type, name, description) FROM stdin;
+1	telefon	\N
+2	mobiil	\N
+3	faks	\N
+4	mail	\N
+\.
+
+
+--
+-- Data for Name: contract; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY contract (contract, contract_manager, contract_status_type, customer, contract_type, cnt_number, name, description, valid_from, valid_to, parent_cnt, created, updated, created_by, updated_by, conditions, note, value_amount, struct_unit) FROM stdin;
+\.
+
+
+--
+-- Data for Name: contract_atr_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY contract_atr_type (contract_atr_type, name, valid_from, valid_to, required, uniq, selectable, orderb, active, created, updated, created_by, updated_by, can_change, default_value, default_value_text) FROM stdin;
+\.
+
+
+--
+-- Data for Name: contract_atr_type_value; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY contract_atr_type_value (contract_atr_type_value, contract_atr_type, value_text, orderb, active, created, updated, created_by, updated_by) FROM stdin;
+\.
+
+
+--
+-- Data for Name: contract_attribute; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY contract_attribute (contract_attribute, contract_atr_type_value, contract_atr_type, contract, value_text, selectable, type_name, can_change, orderb, created_by, updated_by, created, updated) FROM stdin;
+\.
+
+
+--
+-- Data for Name: contract_manager; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY contract_manager (contract_manager, contract, employee, valid_from, valid_to, status, created, created_by, updated, updated_by) FROM stdin;
+\.
+
+
+--
+-- Data for Name: contract_property; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY contract_property (contract_property, contract, property, status, note, relation_type, created_by, updated_by, created, updated) FROM stdin;
+\.
+
+
+--
+-- Data for Name: contract_relation; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY contract_relation (contract_relation, contract, contract1, relation_type, valid_from, valid_to, created, created_by, updated, updated_by, status) FROM stdin;
+\.
+
+
+--
+-- Data for Name: contract_status; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY contract_status (contract_status, contract, contract_status_type, valid_from, valid_to, status, created, created_by, ended, ended_by) FROM stdin;
+\.
+
+
+--
+-- Data for Name: contract_status_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY contract_status_type (contract_status_type, name) FROM stdin;
+6	lõpetatud uuega
+5	lõpetatud
+4	peatatud
+3	kehtiv
+2	kinnitatud
+1	projekt
+\.
+
+
+--
+-- Data for Name: contract_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY contract_type (contract_type, name) FROM stdin;
+\.
+
+
+--
+-- Data for Name: contract_type_atrib; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY contract_type_atrib (contract_type_atrib, contract_atr_type, contract_type, valid_from, valid_to, status, orderb) FROM stdin;
+\.
+
+
+--
+-- Data for Name: cst_address; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY cst_address (cst_address, customer, zip, house, address, county, parish, town_county, address_type, phone, sms, mobile, email, note, country, created, updated, created_by, updated_by) FROM stdin;
+\.
+
+
+--
+-- Data for Name: cst_app_session; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY cst_app_session (cst_app_session, customer, cst_user, session_id, session_start, session_end, last_action, app_id, status_type) FROM stdin;
+\.
+
+
+--
+-- Data for Name: cst_state_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY cst_state_type (cst_state_type, name) FROM stdin;
+1	aktiivne
+2	suletud
+\.
+
+
+--
+-- Data for Name: cst_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY cst_type (cst_type, name) FROM stdin;
+1	Edasimüüja
+2	Klient
+3	Partner
+4	Suurklient
+\.
+
+
+--
+-- Data for Name: cst_type_atr_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY cst_type_atr_type (cst_type_atr_type, cst_type, customer_atr_type, active) FROM stdin;
+\.
+
+
+--
+-- Data for Name: cst_user; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY cst_user (cst_user, customer, username, passw, user_status_type, user_status_date, created, updated, created_by, updated_by, last_session, contact_email) FROM stdin;
+\.
+
+
+--
+-- Data for Name: cust_event_atrib; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY cust_event_atrib (cust_event_atrib, cust_event_atrib_value, cust_event_atrib_type, customer_event, value_text, selectable, type_name, can_change, created_by, updated_by, orderb, created, updated) FROM stdin;
+\.
+
+
+--
+-- Data for Name: cust_event_atrib_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY cust_event_atrib_type (cust_event_atrib_type, name, description, required, uniq, selectable, orderb, active, created, updated, created_by, updated_by, can_change, default_value, default_value_text) FROM stdin;
+\.
+
+
+--
+-- Data for Name: cust_event_atrib_value; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY cust_event_atrib_value (cust_event_atrib_value, cust_event_atrib_type, value_text, orderb, active, created, updated, created_by, updated_by) FROM stdin;
+\.
+
+
+--
+-- Data for Name: cust_event_class; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY cust_event_class (cust_event_class, name, description) FROM stdin;
+1	kliendi sündmus	\N
+2	tegevus	\N
+\.
+
+
+--
+-- Data for Name: cust_event_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY cust_event_type (cust_event_type, cust_event_class, name, description) FROM stdin;
+6	2	teavitus	\N
+5	1	garantii probleem	\N
+4	1	probleem tellimusega	\N
+3	2	pakkumise tegemine	\N
+2	1	pakkumise küsimine	\N
+1	1	kliendi küsimus kauba kohta	\N
+\.
+
+
+--
+-- Data for Name: cust_message_status_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY cust_message_status_type (cust_message_status_type, name) FROM stdin;
+\.
+
+
+--
+-- Data for Name: cust_message_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY cust_message_type (cust_message_type, name) FROM stdin;
+\.
+
+
+--
+-- Data for Name: customer; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY customer (customer, first_name, last_name, identity_code, note, created, updated, created_by, updated_by, birth_date, cst_type, cst_state_type) FROM stdin;
+\.
+
+
+--
+-- Data for Name: customer_atr_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY customer_atr_type (customer_atr_type, name, description, required, uniq, selectable, orderb, active, created, updated, created_by, updated_by, can_change, default_value, default_value_text) FROM stdin;
+\.
+
+
+--
+-- Data for Name: customer_atr_type_value; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY customer_atr_type_value (customer_atr_type_value, customer_atr_type, value_text, orderb, active, created, updated, created_by, updated_by) FROM stdin;
+\.
+
+
+--
+-- Data for Name: customer_attribute; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY customer_attribute (customer_attribute, customer_atr_type_value, customer_atr_type, customer, value_text, selectable, type_name, can_change, orderb, created_by, updated_by, created, updated) FROM stdin;
+\.
+
+
+--
+-- Data for Name: customer_event; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY customer_event (customer_event, project, struct_unit, order_, customer, cust_event_type, subject, value_text, created, created_by, updated, updated_by) FROM stdin;
+\.
+
+
+--
+-- Data for Name: customer_group; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY customer_group (customer_group, customer, c_group, created, created_by) FROM stdin;
+\.
+
+
+--
+-- Data for Name: customer_message; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY customer_message (customer_message, cust_message_type, customer, cust_message_status_type, subject, value_text, orderb, created, created_by, show_start, show_end) FROM stdin;
+\.
+
+
+--
+-- Data for Name: emp_app_session; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY emp_app_session (emp_app_session, employee, emp_user, session_id, session_start, session_end, last_action, app_id, status_type) FROM stdin;
+\.
+
+
+--
+-- Data for Name: emp_role; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY emp_role (emp_role, name) FROM stdin;
+\.
+
+
+--
+-- Data for Name: emp_user; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY emp_user (emp_user, employee, username, passw, user_status_type, created, created_by, updated, updated_by, last_session, contact_email) FROM stdin;
+\.
+
+
+--
+-- Data for Name: employee; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY employee (employee, first_name, last_name, emp_code, created_by, updated_by, current_position, current_manager, current_struct_unit, created, updated, emp_role) FROM stdin;
+\.
+
+
+--
+-- Data for Name: employee_struct_unit; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY employee_struct_unit (employee_struct_unit, employee, struct_unit, relation_type, active, valid_from, valid_to, created, created_by, updated, updated_by) FROM stdin;
+\.
+
+
+--
+-- Data for Name: ent_address; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY ent_address (ent_address, enterprise, zip, house, address, county, parish, town_county, address_type, phone, sms, mobile, email, note, country, created, updated, created_by, updated_by) FROM stdin;
+\.
+
+
+--
+-- Data for Name: ent_customer_relation_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY ent_customer_relation_type (ent_customer_relation_type, name, description) FROM stdin;
+\.
+
+
+--
+-- Data for Name: ent_relation; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY ent_relation (ent_relation, enterprise, enterprise1, note, ent_relation_type) FROM stdin;
+\.
+
+
+--
+-- Data for Name: ent_relation_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY ent_relation_type (ent_relation_type, name, description) FROM stdin;
+\.
+
+
+--
+-- Data for Name: ent_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY ent_type (ent_type, name, description) FROM stdin;
+1	Suur	\N
+2	Keskmine	\N
+3	Väike	\N
+\.
+
+
+--
+-- Data for Name: enterprise; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY enterprise (enterprise, ent_type, short_name, long_name, identity_code, note, created, updated, created_by, updated_by, ent_state_type) FROM stdin;
+\.
+
+
+--
+-- Data for Name: enterprise_customer; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY enterprise_customer (enterprise_customer, customer, enterprise, created, created_by, relation_type, note) FROM stdin;
+\.
+
+
+--
+-- Data for Name: order_; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY order_ (order_, order_status_type, order_status_date, e_shop_chart, contract, customer, order_number, note, shipping_address, created_by, updated_by, created, updated, customer_confirmed, customer_confirmed_by, payd, shipped, confirmed, confirmed_by, completed, completed_by, order_type, d1, n1, a1, d2, n2, a2, struct_unit, offer, project, payment_type) FROM stdin;
+\.
+
+
+--
+-- Data for Name: order_customer; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY order_customer (order_customer, customer, order_, created, created_by, relation_type) FROM stdin;
+\.
+
+
+--
+-- Data for Name: order_item; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY order_item (order_item, order_, item, product, item_count, item_price, item_type, item_added) FROM stdin;
+\.
+
+
+--
+-- Data for Name: order_relation; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY order_relation (order_relation, order_, order1, note, order_relation_type, created, created_by) FROM stdin;
+\.
+
+
+--
+-- Data for Name: order_relation_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY order_relation_type (order_relation_type, name, description) FROM stdin;
+1	seotud pakkumise tellimus	\N
+\.
+
+
+--
+-- Data for Name: order_status; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY order_status (order_status, order_, valid_from, valid_to, created_by, order_status_type, created, ended, ended_by) FROM stdin;
+\.
+
+
+--
+-- Data for Name: order_status_class; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY order_status_class (order_status_class, name) FROM stdin;
+1	Pakkumine
+2	Tellimus
+\.
+
+
+--
+-- Data for Name: order_status_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY order_status_type (order_status_type, order_status_class, name) FROM stdin;
+9	2	Tellijale väljastatud
+8	2	Komplekteerimisel
+7	2	Makstud
+6	2	Vastuvõtja kinnitus
+5	2	Kliendi kinnitus
+4	2	Ostukorv
+3	1	Kliendi kinnitus
+2	1	Koostaja kinnitus
+1	1	Projekt
+\.
+
+
+--
+-- Data for Name: order_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY order_type (order_type, name, description) FROM stdin;
+1	E-poe pakkumine	\N
+2	E-poe tellimus	\N
+\.
+
+
+--
+-- Data for Name: paym_graph; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY paym_graph (paym_graph, payment_type, customer, order_, payment_total, due_date, created, created_by, updated, updated_by, contract, status) FROM stdin;
+\.
+
+
+--
+-- Data for Name: paym_part; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY paym_part (paym_part, paym_graph, paym_part_type, paym_amount) FROM stdin;
+\.
+
+
+--
+-- Data for Name: paym_part_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY paym_part_type (paym_part_type, name, description) FROM stdin;
+1	põhiosa	\N
+2	teenustasu	\N
+\.
+
+
+--
+-- Data for Name: payment_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY payment_type (payment_type, name) FROM stdin;
+\.
+
+
+--
+-- Data for Name: product; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY product (product, enterprise, product_type, created_by, catalog, code, code1, name, description, created, updated, updated_by, price, price2, price3, product_status_type, producer) FROM stdin;
+\.
+
+
+--
+-- Data for Name: product_atr_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY product_atr_type (product_atr_type, name, description, required, uniq, selectable, orderb, active, created, updated, created_by, updated_by, can_change, default_value, default_value_text) FROM stdin;
+\.
+
+
+--
+-- Data for Name: product_atr_type_value; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY product_atr_type_value (product_atr_type_value, product_atr_type, value_text, orderb, active, created, updated, created_by, updated_by) FROM stdin;
+\.
+
+
+--
+-- Data for Name: product_attribute; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY product_attribute (product_attribute, product_atr_type_value, product_atr_type, product, value_text, selectable, type_name, can_change, orderb, created_by, updated_by, created, updated) FROM stdin;
+\.
+
+
+--
+-- Data for Name: product_catalog; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY product_catalog (product_catalog, upper_catalog, cat_level, customer, catalog_type, name, description, item_count, last_item_updated, last_item_created, created_by, updated_by, created, updated, status_type, catalog_code, struct_unit) FROM stdin;
+\.
+
+
+--
+-- Data for Name: product_catalog_atr_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY product_catalog_atr_type (product_catalog_atr_type, product_catalog, product_atr_type, valid_from, valid_to, orderb, status) FROM stdin;
+\.
+
+
+--
+-- Data for Name: product_catalog_relation; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY product_catalog_relation (product_catalog_relation, upper_catalog, lower_catalog, note, relation_type) FROM stdin;
+\.
+
+
+--
+-- Data for Name: product_product_catalog; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY product_product_catalog (product_product_catalog, product_catalog, product, note, relation_type, created, created_by, deleted, deleted_by) FROM stdin;
+\.
+
+
+--
+-- Data for Name: project; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY project (project, project_status_type, project_type, struct_unit, manager, last_status_change, name, description) FROM stdin;
+\.
+
+
+--
+-- Data for Name: project_relation; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY project_relation (project_relation, project, project1, note, relation_type, created_by, created) FROM stdin;
+\.
+
+
+--
+-- Data for Name: project_relation_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY project_relation_type (project_relation_type, name) FROM stdin;
+\.
+
+
+--
+-- Data for Name: project_status; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY project_status (project_status, project_status_type, project, status_start, status_end, prev_status, created_by, created) FROM stdin;
+\.
+
+
+--
+-- Data for Name: project_status_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY project_status_type (project_status_type, name, description) FROM stdin;
+1	planeerimisel	\N
+2	käigus	\N
+3	lõpetatud	\N
+\.
+
+
+--
+-- Data for Name: project_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY project_type (project_type, name, description) FROM stdin;
+1	Müügikampaania	\N
+2	Partnerikampaania	\N
+\.
+
+
+--
+-- Data for Name: prop_type_atrib; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY prop_type_atrib (prop_type_atrib, property_type, property_atr_type, active) FROM stdin;
+\.
+
+
+--
+-- Data for Name: property; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY property (property, property_type, property_status_type, name, description, note, value_amount, created, updated, created_by, updated_by) FROM stdin;
+\.
+
+
+--
+-- Data for Name: property_atr_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY property_atr_type (property_atr_type, name, description, required, uniq, selectable, orderb, active, created, updated, created_by, updated_by, can_change, default_value, default_value_text) FROM stdin;
+\.
+
+
+--
+-- Data for Name: property_atr_value; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY property_atr_value (property_atr_value, property_atr_type, value_text, orderb, active, created, updated, created_by, updated_by) FROM stdin;
+\.
+
+
+--
+-- Data for Name: property_attribute; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY property_attribute (property_attribute, property_atr_value, property_atr_type, property, value_text, selectable, type_name, can_change, orderb, created_by, updated_by, created, updated) FROM stdin;
+\.
+
+
+--
+-- Data for Name: property_class; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY property_class (property_class, name, description) FROM stdin;
+1	sõidukid	\N
+2	kinnisvara	\N
+3	arvutustehnika	\N
+4	koduelektroonika	\N
+5	meditsiinitehnika	\N
+6	tööstusseadmed	\N
+\.
+
+
+--
+-- Data for Name: property_relation; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY property_relation (property_relation, property, property1, note, status, relation_type, created_by, updated_by, created, updated) FROM stdin;
+\.
+
+
+--
+-- Data for Name: property_status; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY property_status (property_status, property_status_type, property, status_start, status_end, prev_status, created_by, created) FROM stdin;
+\.
+
+
+--
+-- Data for Name: property_status_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY property_status_type (property_status_type, name, description) FROM stdin;
+\.
+
+
+--
+-- Data for Name: property_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY property_type (property_type, name, description, property_class) FROM stdin;
+\.
+
+
+--
+-- Data for Name: struct_unit; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY struct_unit (struct_unit, struct_unit_type, unit_code, name, description, upper_unit, name_in_en) FROM stdin;
+1	1	HC1	Peakontor	Peakontor	0	Main office
+2	2	STORE1	Metsapood	Metsas asuv pood	1	Forest shop
+3	2	SP1	Spordivahendid 1	Spordivahendite pood	1	Sports1
+4	2	SP2	Spordivahendid- suusapood	Suusad	1	SportsWinter
+5	2	RM1	Meditsiiniraamatud	Meditsiiniraamatute pood	1	MedBook
+6	2	RM2	Tehnikaraamatute pood	tehnikaraamat	1	TechBook
+7	2	EL1	Elektroonika kauplus	elektroonikapood	1	Electronics
+8	2	IT1	Arvutipood	arvutustehnika	1	PC products
+9	2	IT2	Arvutipood ettevõtetele	serverid	1	IT Enterprise
+10	2	OF1	Kontoritarbed1	Kontoritarvete pood pealinnas	1	Office1
+11	2	OF2	Kontoritarbed2	Kontoritarbed linnas2	1	Office2
+12	2	CR1	Autotarvikud1	Autotarvikute pood	1	Car 1
+13	2	FR1	Mööbel1	Mööblipood	1	Furniture 1
+14	2	SF1	Tarkvara1	Kontoritarkvara	1	Software1
+15	2	KC1	Köögitarbed	Köögitarvete pood	1	Kitchen 1
+16	2	CD1	Plaadipood1	Plaadipood	1	Music1
+17	2	SF2	Tarkvara2	Tarkvara2	1	Software2
+18	2	OF3	Kontoritarbed3	Kontoritarbed3	1	Office3
+19	2	TC1	Piletid	Piletite pood	1	Tickets
+20	2	PH1	Telefonid1	Telefoni pood 1	1	Phones1
+21	2	PH2	Telefonid2	Telefoni pood2	1	Phones2
+22	2	PH3	Telefonid3	Telefoni pood 3	1	Phones3
+23	2	BL1	Ehituspood	Ehitustarved	1	Building materials
+24	2	SF3	Tarkvara3	Tarkvara3	1	Software3
+25	2	MP3_1	Muusika mp3_1	Mp3_1	1	mp3_1
+26	2	MP3_2	Muusika mp3_2	Mp3_2	1	mp3_2
+27	2	GRDN1	Aiatarbed 1	Aiatarvete pood 1	1	Garden 1
+28	2	GRDN2	Aiatarbed 2	Aiatarvete pood 2	1	Garden 2
+29	2	GRDN3	Aiatarbed 3	Aiatarvete pood 3	1	Garden 3
+30	2	TOY1	Mänguasjad 1	Mänguasjade pood 1	1	Toys 1
+31	2	TOY2	Mänguasjad 2	Mänguasjade pood 2	1	Toys 2
+32	2	TOY3	Mänguasjad 3	Mänguasjade pood 3	1	Toys 3
+33	2	ZOO1	Zoo 1	Zookauplus 1	1	Zoo1
+34	2	ZOO2	Zoo 2	Zookauplus 2	1	Zoo 2
+35	2	FR2                	Mööbel 2	Mööblipood 2	1	Furniture 2
+36	2	FR3	Mööbel 3	Mööblipood 3	1	Furniture 3
+37	2	EL2	Elektroonika kauplus 2	elektroonikapood 2	1	Electronics
+38	2	KT1	Köögitehnika 1	Köögitehnika pood 1	1	Kitchen technics
+39	2	KT2	Köögitehnika 2	Köögitehnika pood 2	1	Kitchen technics
+40	2	VG1	Videomängud 1	Videomängud 1	1	Video games 1
+41	2	VG2	Videomängud 2	Videomängud 2	1	Video games 2
+42	2	VG3 	Videomängud 3	Videomängud 3	1	Video games 3
+43	2	CM1	Ehitusmasinad 1	Ehitusmasinad 1	1	Construction machines 1
+44	2	CM2	Ehitusmasinad 2	Ehitusmasinad 2	1	Construction machines 2
+45	2	ELTLS1	El. tööriistad 1	Elektrilised tööriistad 1	1	Electrical tools 1
+46	2	ELTLS2	El. tööriistad 2	Elektrilised tööriistad 2	1	Electrical tools 2
+47	2	TLS1	Tööriistad 1	Tööriistad 1	1	Tools 1
+48	2	TLS2	Tööriistad 2	Tööriistad 2	1	Tools 2
+49	2	TLS3	Tööriistad 3	Tööriistad 3	1	Tools 3
+50	2	CD2	Plaadipood 2	Plaadipood 2	1	Music2
+51	2	KNV1	Taskunoad	Taskunoad 1	1	Knives 1
+52	2	GRDNF1	Aiamööbel 1	Aiamööbel 1	1	Garden furniture 1
+53	2	GRDNF2	Aiamööbel 2	Aiamööbel 2	1	Garden furniture 2
+54	2	PHOT1	Fototarbed 1	Fototarbed 1	1	Photo 1
+55	2	PHOT2	Fototarbed 2	Fototarbed 2	1	Photo 2
+56	2	PHOT3	Fototarbed 3	Fototarbed 3	1	Photo 3
+57	2	BAT1	Akud	Akud ja patareid	1	Batteries 1
+58	2	PR1	Printerid	Printerid ja plotterid	1	Printers and plotters
+59	2	ART1	Kunst 1	Kunst	1	Art 1
+60	2	TV1	Televiisorid	Televiisorid	1	TV1
+61	2	PDA1	Pihuarvutid	Pihuarvutid	1	PDA1
+62	2	SM1	Salvestusmeedia	Salvestusmeedia (lindid, CF, SD , xD)	1	Storage media 1
+63	2	JW1	Juveelid	Juveelid	1	Jewelry 1
+64	2	WTCH1	Kellad 1	Kellad 1	1	Watches 1
+65	2	WTCH2	Kellad 2	Kellad 2	1	Watches 2
+66	2	RF1	Katusekattematerjalid	Katusekattematerjalid	1	Roof materials 1
+67	2	CW1	Küpsetusnõud	Küpsetusnõud (cookware)	1	Cookware 1
+68	2	SH1	Kingad 1	Kingad 1	1	Shoes 1
+69	2	SH2	Kingad 2	Kingad 2	1	Shoes 2
+70	2	V1	Video 1	Video 1	1	Video 1
+71	2	V2	Video 2	Video 2	1	Video 2
+72	2	V3	Video 3	Video 3	1	Video 3
+73	2	V4	Video 4	Video 4	1	Video 4
+74	2	LT1	Valgustid 1	Valgustid 1	1	Lights 1
+75	2	LT2	Valgustid 2	Valgusid 2	1	Lights 2
+76	2	GFT1	Kingitused 1	Kingitused 1	1	Gifts 1
+77	2	GFT2	Kingitused 2	Kingitused 2	1	Gifts 2
+78	2	PHAR1	Ravimid 1	Ravimid 1	1	Pharmatseutics 1
+79	2	PHAR2	Ravimid 2	Ravimid 2	1	Pharmatseutics 2
+80	2	IT3	Arvutustehnika rent	Arvutustehnika rent	1	IT rent
+81	2	IT4	Projektorid	Projektorid	1	Projektorid
+82	2	RM3	Raamatud 3	Raamatud 3	1	Books 3
+83	2	RM4	Raamatud 4	Raamatud 4	1	Books 4
+84	2	RM5	Raamatud 5	Raamatud 5	1	Books 5
+85	2	BLD1	Ehitusmaterjalid 1	Ehitusmaterjalid 1	1	Building 1
+86	2	BLD2	Ehitusmaterjalid 2	Ehitusmaterjalid 2	1	Building 2
+87	2	BLD3	Ehitusmaterjalid 3	Ehitusmaterjalid 3	1	Building 3
+88	2	WSH1	Pesumasinad	Pesumasinad	1	Washing machines
+89	2	IT5	Kõvakettad	Kõvakettad	1	Hard disks
+90	2	IT6	Andmesalvestus	Andmesalvestus ja arhiveerimine	1	IT Storage
+91	2	HCE1	Kodukeemia	Kodukeemia	1	Home chemistry
+92	2	MT1	Muusikariistad 1	Muusikariistad 1	1	Music equipment 1
+93	2	MT2	Muusikariistad 2	Muusikariistad 2	1	Music equipment 2
+94	2	MT3	Muusikariistad 3	Muusikariistad 3	1	Music equipment 3
+95	2	LXF1	Luksusmööbel 1	Luksusmööbel 1	1	Luxury furniture 1
+96	2	LXF2	Luksusmööbel 2	Luksusmööbel 2	1	Luxury furniture 2
+97	2	IT7	Arvutid 7	Arvutid 7	1	IT 7
+98	2	CR2	Autotarvikud 2	Autotarvikud 2	1	Car 2
+99	2	CR3	Autotarvikud 3	Autotarvikud 3	1	Car 3
+100	2	CR4	Autotarvikud 4	Autotarvikud 4	1	Car 4
+\.
+
+
+--
+-- Name: c_group_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY c_group
+    ADD CONSTRAINT c_group_pk PRIMARY KEY (c_group);
+
+
+--
+-- Name: catalog_type_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY catalog_type
+    ADD CONSTRAINT catalog_type_pk PRIMARY KEY (catalog_type);
+
+
+--
+-- Name: comm_device_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY comm_device
+    ADD CONSTRAINT comm_device_pk PRIMARY KEY (comm_device);
+
+
+--
+-- Name: comm_device_type_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY comm_device_type
+    ADD CONSTRAINT comm_device_type_pk PRIMARY KEY (comm_device_type);
+
+
+--
+-- Name: contract_atr_type_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY contract_atr_type
+    ADD CONSTRAINT contract_atr_type_pk PRIMARY KEY (contract_atr_type);
+
+
+--
+-- Name: contract_atr_type_value_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY contract_atr_type_value
+    ADD CONSTRAINT contract_atr_type_value_pk PRIMARY KEY (contract_atr_type_value);
+
+
+--
+-- Name: contract_attribute_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY contract_attribute
+    ADD CONSTRAINT contract_attribute_pk PRIMARY KEY (contract_attribute);
+
+
+--
+-- Name: contract_manager_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY contract_manager
+    ADD CONSTRAINT contract_manager_pk PRIMARY KEY (contract_manager);
+
+
+--
+-- Name: contract_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY contract
+    ADD CONSTRAINT contract_pk PRIMARY KEY (contract);
+
+
+--
+-- Name: contract_property_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY contract_property
+    ADD CONSTRAINT contract_property_pk PRIMARY KEY (contract_property);
+
+
+--
+-- Name: contract_relation_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY contract_relation
+    ADD CONSTRAINT contract_relation_pk PRIMARY KEY (contract_relation);
+
+
+--
+-- Name: contract_status_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY contract_status
+    ADD CONSTRAINT contract_status_pk PRIMARY KEY (contract_status);
+
+
+--
+-- Name: contract_status_type_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY contract_status_type
+    ADD CONSTRAINT contract_status_type_pk PRIMARY KEY (contract_status_type);
+
+
+--
+-- Name: contract_type_atrib_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY contract_type_atrib
+    ADD CONSTRAINT contract_type_atrib_pk PRIMARY KEY (contract_type_atrib);
+
+
+--
+-- Name: contract_type_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY contract_type
+    ADD CONSTRAINT contract_type_pk PRIMARY KEY (contract_type);
+
+
+--
+-- Name: cst_address_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY cst_address
+    ADD CONSTRAINT cst_address_pk PRIMARY KEY (cst_address);
+
+
+--
+-- Name: cst_app_session_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY cst_app_session
+    ADD CONSTRAINT cst_app_session_pk PRIMARY KEY (cst_app_session);
+
+
+--
+-- Name: cst_state_type_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY cst_state_type
+    ADD CONSTRAINT cst_state_type_pk PRIMARY KEY (cst_state_type);
+
+
+--
+-- Name: cst_type_atr_type_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY cst_type_atr_type
+    ADD CONSTRAINT cst_type_atr_type_pk PRIMARY KEY (cst_type_atr_type);
+
+
+--
+-- Name: cst_type_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY cst_type
+    ADD CONSTRAINT cst_type_pk PRIMARY KEY (cst_type);
+
+
+--
+-- Name: cst_user_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY cst_user
+    ADD CONSTRAINT cst_user_pk PRIMARY KEY (cst_user);
+
+
+--
+-- Name: cust_event_atrib_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY cust_event_atrib
+    ADD CONSTRAINT cust_event_atrib_pk PRIMARY KEY (cust_event_atrib);
+
+
+--
+-- Name: cust_event_atrib_type_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY cust_event_atrib_type
+    ADD CONSTRAINT cust_event_atrib_type_pk PRIMARY KEY (cust_event_atrib_type);
+
+
+--
+-- Name: cust_event_atrib_value_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY cust_event_atrib_value
+    ADD CONSTRAINT cust_event_atrib_value_pk PRIMARY KEY (cust_event_atrib_value);
+
+
+--
+-- Name: cust_event_class_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY cust_event_class
+    ADD CONSTRAINT cust_event_class_pk PRIMARY KEY (cust_event_class);
+
+
+--
+-- Name: cust_event_type_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY cust_event_type
+    ADD CONSTRAINT cust_event_type_pk PRIMARY KEY (cust_event_type);
+
+
+--
+-- Name: cust_message_status_type_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY cust_message_status_type
+    ADD CONSTRAINT cust_message_status_type_pk PRIMARY KEY (cust_message_status_type);
+
+
+--
+-- Name: cust_message_type_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY cust_message_type
+    ADD CONSTRAINT cust_message_type_pk PRIMARY KEY (cust_message_type);
+
+
+--
+-- Name: customer_atr_type_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY customer_atr_type
+    ADD CONSTRAINT customer_atr_type_pk PRIMARY KEY (customer_atr_type);
+
+
+--
+-- Name: customer_atr_type_value_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY customer_atr_type_value
+    ADD CONSTRAINT customer_atr_type_value_pk PRIMARY KEY (customer_atr_type_value);
+
+
+--
+-- Name: customer_attribute_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY customer_attribute
+    ADD CONSTRAINT customer_attribute_pk PRIMARY KEY (customer_attribute);
+
+
+--
+-- Name: customer_event_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY customer_event
+    ADD CONSTRAINT customer_event_pk PRIMARY KEY (customer_event);
+
+
+--
+-- Name: customer_group_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY customer_group
+    ADD CONSTRAINT customer_group_pk PRIMARY KEY (customer_group);
+
+
+--
+-- Name: customer_message_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY customer_message
+    ADD CONSTRAINT customer_message_pk PRIMARY KEY (customer_message);
+
+
+--
+-- Name: customer_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY customer
+    ADD CONSTRAINT customer_pk PRIMARY KEY (customer);
+
+
+--
+-- Name: emp_app_session_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY emp_app_session
+    ADD CONSTRAINT emp_app_session_pk PRIMARY KEY (emp_app_session);
+
+
+--
+-- Name: emp_role_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY emp_role
+    ADD CONSTRAINT emp_role_pk PRIMARY KEY (emp_role);
+
+
+--
+-- Name: emp_user_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY emp_user
+    ADD CONSTRAINT emp_user_pk PRIMARY KEY (emp_user);
+
+
+--
+-- Name: employee_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY employee
+    ADD CONSTRAINT employee_pk PRIMARY KEY (employee);
+
+
+--
+-- Name: employee_struct_unit_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY employee_struct_unit
+    ADD CONSTRAINT employee_struct_unit_pk PRIMARY KEY (employee_struct_unit);
+
+
+--
+-- Name: ent_address_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY ent_address
+    ADD CONSTRAINT ent_address_pk PRIMARY KEY (ent_address);
+
+
+--
+-- Name: ent_customer_relation_type_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY ent_customer_relation_type
+    ADD CONSTRAINT ent_customer_relation_type_pk PRIMARY KEY (ent_customer_relation_type);
+
+
+--
+-- Name: ent_relation_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY ent_relation
+    ADD CONSTRAINT ent_relation_pk PRIMARY KEY (ent_relation);
+
+
+--
+-- Name: ent_relation_type_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY ent_relation_type
+    ADD CONSTRAINT ent_relation_type_pk PRIMARY KEY (ent_relation_type);
+
+
+--
+-- Name: ent_type_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY ent_type
+    ADD CONSTRAINT ent_type_pk PRIMARY KEY (ent_type);
+
+
+--
+-- Name: enteprise_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY enterprise
+    ADD CONSTRAINT enteprise_pk PRIMARY KEY (enterprise);
+
+
+--
+-- Name: enterprise_customer_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY enterprise_customer
+    ADD CONSTRAINT enterprise_customer_pk PRIMARY KEY (enterprise_customer);
+
+
+--
+-- Name: order_customer_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY order_customer
+    ADD CONSTRAINT order_customer_pk PRIMARY KEY (order_customer);
+
+
+--
+-- Name: order_item_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY order_item
+    ADD CONSTRAINT order_item_pk PRIMARY KEY (order_item);
+
+
+--
+-- Name: order_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY order_
+    ADD CONSTRAINT order_pk PRIMARY KEY (order_);
+
+
+--
+-- Name: order_relation_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY order_relation
+    ADD CONSTRAINT order_relation_pk PRIMARY KEY (order_relation);
+
+
+--
+-- Name: order_relation_type_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY order_relation_type
+    ADD CONSTRAINT order_relation_type_pk PRIMARY KEY (order_relation_type);
+
+
+--
+-- Name: order_status_class_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY order_status_class
+    ADD CONSTRAINT order_status_class_pk PRIMARY KEY (order_status_class);
+
+
+--
+-- Name: order_status_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY order_status
+    ADD CONSTRAINT order_status_pk PRIMARY KEY (order_status);
+
+
+--
+-- Name: order_status_type_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY order_status_type
+    ADD CONSTRAINT order_status_type_pk PRIMARY KEY (order_status_type);
+
+
+--
+-- Name: order_type_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY order_type
+    ADD CONSTRAINT order_type_pk PRIMARY KEY (order_type);
+
+
+--
+-- Name: paym_graph_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY paym_graph
+    ADD CONSTRAINT paym_graph_pk PRIMARY KEY (paym_graph);
+
+
+--
+-- Name: paym_part_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY paym_part
+    ADD CONSTRAINT paym_part_pk PRIMARY KEY (paym_part);
+
+
+--
+-- Name: paym_part_type_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY paym_part_type
+    ADD CONSTRAINT paym_part_type_pk PRIMARY KEY (paym_part_type);
+
+
+--
+-- Name: payment_type_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY payment_type
+    ADD CONSTRAINT payment_type_pk PRIMARY KEY (payment_type);
+
+
+--
+-- Name: product_atr_type_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY product_atr_type
+    ADD CONSTRAINT product_atr_type_pk PRIMARY KEY (product_atr_type);
+
+
+--
+-- Name: product_atr_type_value_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY product_atr_type_value
+    ADD CONSTRAINT product_atr_type_value_pk PRIMARY KEY (product_atr_type_value);
+
+
+--
+-- Name: product_attribute_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY product_attribute
+    ADD CONSTRAINT product_attribute_pk PRIMARY KEY (product_attribute);
+
+
+--
+-- Name: product_catalog_atr_type_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY product_catalog_atr_type
+    ADD CONSTRAINT product_catalog_atr_type_pk PRIMARY KEY (product_catalog_atr_type);
+
+
+--
+-- Name: product_catalog_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY product_catalog
+    ADD CONSTRAINT product_catalog_pk PRIMARY KEY (product_catalog);
+
+
+--
+-- Name: product_catalog_relation_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY product_catalog_relation
+    ADD CONSTRAINT product_catalog_relation_pk PRIMARY KEY (product_catalog_relation);
+
+
+--
+-- Name: product_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY product
+    ADD CONSTRAINT product_pk PRIMARY KEY (product);
+
+
+--
+-- Name: product_product_catalog_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY product_product_catalog
+    ADD CONSTRAINT product_product_catalog_pk PRIMARY KEY (product_product_catalog);
+
+
+--
+-- Name: project_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY project
+    ADD CONSTRAINT project_pk PRIMARY KEY (project);
+
+
+--
+-- Name: project_relation_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY project_relation
+    ADD CONSTRAINT project_relation_pk PRIMARY KEY (project_relation);
+
+
+--
+-- Name: project_relation_type_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY project_relation_type
+    ADD CONSTRAINT project_relation_type_pk PRIMARY KEY (project_relation_type);
+
+
+--
+-- Name: project_status_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY project_status
+    ADD CONSTRAINT project_status_pk PRIMARY KEY (project_status);
+
+
+--
+-- Name: project_status_type_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY project_status_type
+    ADD CONSTRAINT project_status_type_pk PRIMARY KEY (project_status_type);
+
+
+--
+-- Name: project_type_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY project_type
+    ADD CONSTRAINT project_type_pk PRIMARY KEY (project_type);
+
+
+--
+-- Name: prop_type_atrib_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY prop_type_atrib
+    ADD CONSTRAINT prop_type_atrib_pk PRIMARY KEY (prop_type_atrib);
+
+
+--
+-- Name: property_atr_type_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY property_atr_type
+    ADD CONSTRAINT property_atr_type_pk PRIMARY KEY (property_atr_type);
+
+
+--
+-- Name: property_atrib_value_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY property_atr_value
+    ADD CONSTRAINT property_atrib_value_pk PRIMARY KEY (property_atr_value);
+
+
+--
+-- Name: property_attribute_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY property_attribute
+    ADD CONSTRAINT property_attribute_pk PRIMARY KEY (property_attribute);
+
+
+--
+-- Name: property_class_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY property_class
+    ADD CONSTRAINT property_class_pk PRIMARY KEY (property_class);
+
+
+--
+-- Name: property_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY property
+    ADD CONSTRAINT property_pk PRIMARY KEY (property);
+
+
+--
+-- Name: property_relation_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY property_relation
+    ADD CONSTRAINT property_relation_pk PRIMARY KEY (property_relation);
+
+
+--
+-- Name: property_status_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY property_status
+    ADD CONSTRAINT property_status_pk PRIMARY KEY (property_status);
+
+
+--
+-- Name: property_status_type_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY property_status_type
+    ADD CONSTRAINT property_status_type_pk PRIMARY KEY (property_status_type);
+
+
+--
+-- Name: property_type_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY property_type
+    ADD CONSTRAINT property_type_pk PRIMARY KEY (property_type);
+
+
+--
+-- Name: struct_unit_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY struct_unit
+    ADD CONSTRAINT struct_unit_pk PRIMARY KEY (struct_unit);
+
+
+--
+-- Name: c_group_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX c_group_idx1 ON c_group USING btree (struct_unit);
+
+
+--
+-- Name: c_group_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX c_group_idx2 ON c_group USING btree (c_group);
+
+
+--
+-- Name: comm_device_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX comm_device_idx1 ON comm_device USING btree (customer);
+
+
+--
+-- Name: comm_device_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX comm_device_idx2 ON comm_device USING btree (comm_device_type);
+
+
+--
+-- Name: comm_device_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX comm_device_idx3 ON comm_device USING btree (value_text varchar_pattern_ops);
+
+
+--
+-- Name: comm_device_idx4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX comm_device_idx4 ON comm_device USING btree (comm_device);
+
+
+--
+-- Name: contract_atr_type_value_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX contract_atr_type_value_idx1 ON contract_atr_type_value USING btree (contract_atr_type);
+
+
+--
+-- Name: contract_atr_type_value_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX contract_atr_type_value_idx2 ON contract_atr_type_value USING btree (value_text varchar_pattern_ops);
+
+
+--
+-- Name: contract_atr_type_value_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX contract_atr_type_value_idx3 ON contract_atr_type_value USING btree (contract_atr_type_value);
+
+
+--
+-- Name: contract_attribute_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX contract_attribute_idx1 ON contract_attribute USING btree (contract);
+
+
+--
+-- Name: contract_attribute_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX contract_attribute_idx2 ON contract_attribute USING btree (value_text varchar_pattern_ops);
+
+
+--
+-- Name: contract_attribute_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX contract_attribute_idx3 ON contract_attribute USING btree (contract_atr_type);
+
+
+--
+-- Name: contract_attribute_idx4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX contract_attribute_idx4 ON contract_attribute USING btree (contract_atr_type_value);
+
+
+--
+-- Name: contract_attribute_idx5; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX contract_attribute_idx5 ON contract_attribute USING btree (contract_attribute);
+
+
+--
+-- Name: contract_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX contract_idx1 ON contract USING btree (contract);
+
+
+--
+-- Name: contract_idx10; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX contract_idx10 ON contract USING btree (updated);
+
+
+--
+-- Name: contract_idx11; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX contract_idx11 ON contract USING btree (updated_by);
+
+
+--
+-- Name: contract_idx12; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX contract_idx12 ON contract USING btree (struct_unit);
+
+
+--
+-- Name: contract_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX contract_idx2 ON contract USING btree (contract_manager);
+
+
+--
+-- Name: contract_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX contract_idx3 ON contract USING btree (customer);
+
+
+--
+-- Name: contract_idx4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX contract_idx4 ON contract USING btree (cnt_number varchar_pattern_ops);
+
+
+--
+-- Name: contract_idx5; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX contract_idx5 ON contract USING btree (name);
+
+
+--
+-- Name: contract_idx6; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX contract_idx6 ON contract USING btree (valid_from);
+
+
+--
+-- Name: contract_idx7; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX contract_idx7 ON contract USING btree (valid_to);
+
+
+--
+-- Name: contract_idx8; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX contract_idx8 ON contract USING btree (created);
+
+
+--
+-- Name: contract_idx9; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX contract_idx9 ON contract USING btree (created_by);
+
+
+--
+-- Name: contract_manager_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX contract_manager_idx1 ON contract_manager USING btree (contract);
+
+
+--
+-- Name: contract_manager_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX contract_manager_idx2 ON contract_manager USING btree (employee);
+
+
+--
+-- Name: contract_manager_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX contract_manager_idx3 ON contract_manager USING btree (contract_manager);
+
+
+--
+-- Name: contract_property_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX contract_property_idx1 ON contract_property USING btree (contract);
+
+
+--
+-- Name: contract_property_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX contract_property_idx2 ON contract_property USING btree (property);
+
+
+--
+-- Name: contract_property_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX contract_property_idx3 ON contract_property USING btree (relation_type);
+
+
+--
+-- Name: contract_property_idx4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX contract_property_idx4 ON contract_property USING btree (contract_property);
+
+
+--
+-- Name: contract_relation_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX contract_relation_idx1 ON contract_relation USING btree (contract);
+
+
+--
+-- Name: contract_relation_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX contract_relation_idx2 ON contract_relation USING btree (contract1);
+
+
+--
+-- Name: contract_relation_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX contract_relation_idx3 ON contract_relation USING btree (relation_type);
+
+
+--
+-- Name: contract_relation_idx4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX contract_relation_idx4 ON contract_relation USING btree (contract_relation);
+
+
+--
+-- Name: contract_status_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX contract_status_idx1 ON contract_status USING btree (contract);
+
+
+--
+-- Name: contract_status_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX contract_status_idx2 ON contract_status USING btree (contract_status_type);
+
+
+--
+-- Name: contract_status_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX contract_status_idx3 ON contract_status USING btree (valid_from);
+
+
+--
+-- Name: contract_status_idx4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX contract_status_idx4 ON contract_status USING btree (valid_to);
+
+
+--
+-- Name: contract_status_idx5; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX contract_status_idx5 ON contract_status USING btree (contract_status);
+
+
+--
+-- Name: contract_type_atrib_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX contract_type_atrib_idx1 ON contract_type_atrib USING btree (contract_type);
+
+
+--
+-- Name: contract_type_atrib_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX contract_type_atrib_idx2 ON contract_type_atrib USING btree (contract_atr_type);
+
+
+--
+-- Name: contract_type_atrib_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX contract_type_atrib_idx3 ON contract_type_atrib USING btree (contract_type_atrib);
+
+
+--
+-- Name: cst_address_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX cst_address_idx1 ON cst_address USING btree (customer);
+
+
+--
+-- Name: cst_address_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX cst_address_idx2 ON cst_address USING btree (address varchar_pattern_ops);
+
+
+--
+-- Name: cst_address_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX cst_address_idx3 ON cst_address USING btree (county varchar_pattern_ops);
+
+
+--
+-- Name: cst_address_idx4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX cst_address_idx4 ON cst_address USING btree (house varchar_pattern_ops);
+
+
+--
+-- Name: cst_address_idx5; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX cst_address_idx5 ON cst_address USING btree (town_county varchar_pattern_ops);
+
+
+--
+-- Name: cst_address_idx6; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX cst_address_idx6 ON cst_address USING btree (zip varchar_pattern_ops);
+
+
+--
+-- Name: cst_address_idx7; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX cst_address_idx7 ON cst_address USING btree (email varchar_pattern_ops);
+
+
+--
+-- Name: cst_address_idx8; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX cst_address_idx8 ON cst_address USING btree (cst_address);
+
+
+--
+-- Name: cst_app_session_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX cst_app_session_idx1 ON cst_app_session USING btree (customer);
+
+
+--
+-- Name: cst_app_session_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX cst_app_session_idx2 ON cst_app_session USING btree (cst_user);
+
+
+--
+-- Name: cst_app_session_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX cst_app_session_idx3 ON cst_app_session USING btree (cst_app_session);
+
+
+--
+-- Name: cst_type_atr_type_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX cst_type_atr_type_idx1 ON cst_type_atr_type USING btree (customer_atr_type);
+
+
+--
+-- Name: cst_type_atr_type_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX cst_type_atr_type_idx2 ON cst_type_atr_type USING btree (cst_type);
+
+
+--
+-- Name: cst_type_atr_type_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX cst_type_atr_type_idx3 ON cst_type_atr_type USING btree (cst_type_atr_type);
+
+
+--
+-- Name: cst_user_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX cst_user_idx1 ON cst_user USING btree (customer);
+
+
+--
+-- Name: cst_user_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX cst_user_idx2 ON cst_user USING btree (passw varchar_pattern_ops);
+
+
+--
+-- Name: cst_user_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX cst_user_idx3 ON cst_user USING btree (cst_user);
+
+
+--
+-- Name: cst_user_ux1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE UNIQUE INDEX cst_user_ux1 ON cst_user USING btree (username varchar_pattern_ops);
+
+
+--
+-- Name: cust_event_atrib_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX cust_event_atrib_idx1 ON cust_event_atrib USING btree (customer_event);
+
+
+--
+-- Name: cust_event_atrib_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX cust_event_atrib_idx2 ON cust_event_atrib USING btree (cust_event_atrib_value);
+
+
+--
+-- Name: cust_event_atrib_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX cust_event_atrib_idx3 ON cust_event_atrib USING btree (cust_event_atrib_type);
+
+
+--
+-- Name: cust_event_atrib_idx4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX cust_event_atrib_idx4 ON cust_event_atrib USING btree (value_text varchar_pattern_ops);
+
+
+--
+-- Name: cust_event_atrib_idx5; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX cust_event_atrib_idx5 ON cust_event_atrib USING btree (cust_event_atrib);
+
+
+--
+-- Name: customer_atr_type_value_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX customer_atr_type_value_idx1 ON customer_atr_type_value USING btree (customer_atr_type);
+
+
+--
+-- Name: customer_atr_type_value_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX customer_atr_type_value_idx2 ON customer_atr_type_value USING btree (value_text varchar_pattern_ops);
+
+
+--
+-- Name: customer_atr_type_value_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX customer_atr_type_value_idx3 ON customer_atr_type_value USING btree (customer_atr_type_value);
+
+
+--
+-- Name: customer_attribute_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX customer_attribute_idx1 ON customer_attribute USING btree (customer);
+
+
+--
+-- Name: customer_attribute_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX customer_attribute_idx2 ON customer_attribute USING btree (customer_atr_type);
+
+
+--
+-- Name: customer_attribute_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX customer_attribute_idx3 ON customer_attribute USING btree (customer_atr_type_value);
+
+
+--
+-- Name: customer_attribute_idx4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX customer_attribute_idx4 ON customer_attribute USING btree (value_text varchar_pattern_ops);
+
+
+--
+-- Name: customer_attribute_idx5; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX customer_attribute_idx5 ON customer_attribute USING btree (customer_attribute);
+
+
+--
+-- Name: customer_event_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX customer_event_idx1 ON customer_event USING btree (customer);
+
+
+--
+-- Name: customer_event_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX customer_event_idx2 ON customer_event USING btree (created_by);
+
+
+--
+-- Name: customer_event_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX customer_event_idx3 ON customer_event USING btree (cust_event_type);
+
+
+--
+-- Name: customer_event_idx4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX customer_event_idx4 ON customer_event USING btree (struct_unit);
+
+
+--
+-- Name: customer_event_idx5; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX customer_event_idx5 ON customer_event USING btree (project);
+
+
+--
+-- Name: customer_event_idx6; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX customer_event_idx6 ON customer_event USING btree (subject varchar_pattern_ops);
+
+
+--
+-- Name: customer_event_idx7; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX customer_event_idx7 ON customer_event USING btree (created);
+
+
+--
+-- Name: customer_event_idx8; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX customer_event_idx8 ON customer_event USING btree (customer_event);
+
+
+--
+-- Name: customer_event_idx9; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX customer_event_idx9 ON customer_event USING btree (value_text varchar_pattern_ops);
+
+
+--
+-- Name: customer_group_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX customer_group_idx1 ON customer_group USING btree (customer);
+
+
+--
+-- Name: customer_group_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX customer_group_idx2 ON customer_group USING btree (c_group);
+
+
+--
+-- Name: customer_group_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX customer_group_idx3 ON customer_group USING btree (customer_group);
+
+
+--
+-- Name: customer_group_idx4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX customer_group_idx4 ON customer_group USING btree (customer_group);
+
+
+--
+-- Name: customer_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX customer_idx1 ON customer USING btree (customer);
+
+
+--
+-- Name: customer_idx10; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX customer_idx10 ON customer USING btree (updated_by);
+
+
+--
+-- Name: customer_idx11; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX customer_idx11 ON customer USING btree (note varchar_pattern_ops);
+
+
+--
+-- Name: customer_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX customer_idx2 ON customer USING btree (last_name varchar_pattern_ops);
+
+
+--
+-- Name: customer_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX customer_idx3 ON customer USING btree (identity_code varchar_pattern_ops);
+
+
+--
+-- Name: customer_idx5; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX customer_idx5 ON customer USING btree (cst_state_type);
+
+
+--
+-- Name: customer_idx6; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX customer_idx6 ON customer USING btree (first_name varchar_pattern_ops);
+
+
+--
+-- Name: customer_idx7; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX customer_idx7 ON customer USING btree (created);
+
+
+--
+-- Name: customer_idx8; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX customer_idx8 ON customer USING btree (created_by);
+
+
+--
+-- Name: customer_idx9; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX customer_idx9 ON customer USING btree (updated);
+
+
+--
+-- Name: customer_message_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX customer_message_idx1 ON customer_message USING btree (customer);
+
+
+--
+-- Name: customer_message_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX customer_message_idx2 ON customer_message USING btree (created);
+
+
+--
+-- Name: customer_message_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX customer_message_idx3 ON customer_message USING btree (cust_message_type);
+
+
+--
+-- Name: customer_message_idx4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX customer_message_idx4 ON customer_message USING btree (created_by);
+
+
+--
+-- Name: customer_message_idx5; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX customer_message_idx5 ON customer_message USING btree (customer_message);
+
+
+--
+-- Name: customer_message_idx6; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX customer_message_idx6 ON customer_message USING btree (value_text varchar_pattern_ops);
+
+
+--
+-- Name: customer_message_idx7; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX customer_message_idx7 ON customer_message USING btree (subject varchar_pattern_ops);
+
+
+--
+-- Name: emp_app_session_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX emp_app_session_idx1 ON emp_app_session USING btree (emp_user);
+
+
+--
+-- Name: emp_app_session_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX emp_app_session_idx2 ON emp_app_session USING btree (employee);
+
+
+--
+-- Name: emp_app_session_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX emp_app_session_idx3 ON emp_app_session USING btree (emp_app_session);
+
+
+--
+-- Name: emp_user_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX emp_user_idx1 ON emp_user USING btree (employee);
+
+
+--
+-- Name: emp_user_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX emp_user_idx2 ON emp_user USING btree (passw varchar_pattern_ops);
+
+
+--
+-- Name: emp_user_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX emp_user_idx3 ON emp_user USING btree (emp_user);
+
+
+--
+-- Name: emp_user_ux1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE UNIQUE INDEX emp_user_ux1 ON emp_user USING btree (username varchar_pattern_ops);
+
+
+--
+-- Name: employee_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX employee_idx1 ON employee USING btree (current_struct_unit);
+
+
+--
+-- Name: employee_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX employee_idx2 ON employee USING btree (first_name varchar_pattern_ops);
+
+
+--
+-- Name: employee_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX employee_idx3 ON employee USING btree (last_name varchar_pattern_ops);
+
+
+--
+-- Name: employee_idx4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX employee_idx4 ON employee USING btree (emp_role);
+
+
+--
+-- Name: employee_idx5; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX employee_idx5 ON employee USING btree (employee);
+
+
+--
+-- Name: employee_struct_unit_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX employee_struct_unit_idx1 ON employee_struct_unit USING btree (struct_unit);
+
+
+--
+-- Name: employee_struct_unit_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX employee_struct_unit_idx2 ON employee_struct_unit USING btree (employee);
+
+
+--
+-- Name: employee_struct_unit_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX employee_struct_unit_idx3 ON employee_struct_unit USING btree (employee_struct_unit);
+
+
+--
+-- Name: ent_address_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX ent_address_idx1 ON ent_address USING btree (enterprise);
+
+
+--
+-- Name: ent_address_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX ent_address_idx2 ON ent_address USING btree (zip varchar_pattern_ops);
+
+
+--
+-- Name: ent_address_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX ent_address_idx3 ON ent_address USING btree (house varchar_pattern_ops);
+
+
+--
+-- Name: ent_address_idx4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX ent_address_idx4 ON ent_address USING btree (address varchar_pattern_ops);
+
+
+--
+-- Name: ent_address_idx5; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX ent_address_idx5 ON ent_address USING btree (county varchar_pattern_ops);
+
+
+--
+-- Name: ent_address_idx6; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX ent_address_idx6 ON ent_address USING btree (town_county varchar_pattern_ops);
+
+
+--
+-- Name: ent_address_idx7; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX ent_address_idx7 ON ent_address USING btree (country);
+
+
+--
+-- Name: ent_address_idx8; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX ent_address_idx8 ON ent_address USING btree (ent_address);
+
+
+--
+-- Name: ent_relation_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX ent_relation_idx1 ON ent_relation USING btree (enterprise);
+
+
+--
+-- Name: ent_relation_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX ent_relation_idx2 ON ent_relation USING btree (enterprise1);
+
+
+--
+-- Name: ent_relation_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX ent_relation_idx3 ON ent_relation USING btree (enterprise, ent_relation_type);
+
+
+--
+-- Name: ent_relation_idx4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX ent_relation_idx4 ON ent_relation USING btree (ent_relation);
+
+
+--
+-- Name: enteprise_customer_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX enteprise_customer_idx1 ON enterprise_customer USING btree (enterprise);
+
+
+--
+-- Name: enteprise_customer_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX enteprise_customer_idx2 ON enterprise_customer USING btree (customer);
+
+
+--
+-- Name: enteprise_customer_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX enteprise_customer_idx3 ON enterprise_customer USING btree (customer, enterprise, relation_type);
+
+
+--
+-- Name: enteprise_customer_idx4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX enteprise_customer_idx4 ON enterprise_customer USING btree (enterprise_customer);
+
+
+--
+-- Name: enteprise_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX enteprise_idx1 ON enterprise USING btree (short_name varchar_pattern_ops);
+
+
+--
+-- Name: enteprise_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX enteprise_idx2 ON enterprise USING btree (long_name varchar_pattern_ops);
+
+
+--
+-- Name: enteprise_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX enteprise_idx3 ON enterprise USING btree (identity_code varchar_pattern_ops);
+
+
+--
+-- Name: enteprise_idx4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX enteprise_idx4 ON enterprise USING btree (enterprise);
+
+
+--
+-- Name: order_customer_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX order_customer_idx1 ON order_customer USING btree (customer);
+
+
+--
+-- Name: order_customer_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX order_customer_idx2 ON order_customer USING btree (order_);
+
+
+--
+-- Name: order_customer_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX order_customer_idx3 ON order_customer USING btree (order_customer);
+
+
+--
+-- Name: order_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX order_idx1 ON order_ USING btree (customer);
+
+
+--
+-- Name: order_idx10; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX order_idx10 ON order_ USING btree (order_status_date);
+
+
+--
+-- Name: order_idx11; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX order_idx11 ON order_ USING btree (order_status_type);
+
+
+--
+-- Name: order_idx12; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX order_idx12 ON order_ USING btree (project);
+
+
+--
+-- Name: order_idx13; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX order_idx13 ON order_ USING btree (offer);
+
+
+--
+-- Name: order_idx14; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX order_idx14 ON order_ USING btree (order_);
+
+
+--
+-- Name: order_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX order_idx2 ON order_ USING btree (contract);
+
+
+--
+-- Name: order_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX order_idx3 ON order_ USING btree (order_number varchar_pattern_ops);
+
+
+--
+-- Name: order_idx4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX order_idx4 ON order_ USING btree (created_by);
+
+
+--
+-- Name: order_idx5; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX order_idx5 ON order_ USING btree (created);
+
+
+--
+-- Name: order_idx6; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX order_idx6 ON order_ USING btree (updated);
+
+
+--
+-- Name: order_idx7; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX order_idx7 ON order_ USING btree (updated_by);
+
+
+--
+-- Name: order_idx8; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX order_idx8 ON order_ USING btree (customer_confirmed);
+
+
+--
+-- Name: order_idx9; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX order_idx9 ON order_ USING btree (shipping_address);
+
+
+--
+-- Name: order_item_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX order_item_idx1 ON order_item USING btree (order_);
+
+
+--
+-- Name: order_item_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX order_item_idx2 ON order_item USING btree (product);
+
+
+--
+-- Name: order_item_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX order_item_idx3 ON order_item USING btree (order_item);
+
+
+--
+-- Name: order_relation_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX order_relation_idx1 ON order_relation USING btree (order_);
+
+
+--
+-- Name: order_relation_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX order_relation_idx2 ON order_relation USING btree (order1);
+
+
+--
+-- Name: order_relation_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX order_relation_idx3 ON order_relation USING btree (order_relation_type);
+
+
+--
+-- Name: order_relation_idx4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX order_relation_idx4 ON order_relation USING btree (order_relation);
+
+
+--
+-- Name: order_status_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX order_status_idx1 ON order_status USING btree (order_);
+
+
+--
+-- Name: order_status_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX order_status_idx2 ON order_status USING btree (order_status_type);
+
+
+--
+-- Name: order_status_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX order_status_idx3 ON order_status USING btree (valid_from);
+
+
+--
+-- Name: order_status_idx4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX order_status_idx4 ON order_status USING btree (valid_to);
+
+
+--
+-- Name: order_status_idx5; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX order_status_idx5 ON order_status USING btree (created);
+
+
+--
+-- Name: order_status_idx6; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX order_status_idx6 ON order_status USING btree (created_by);
+
+
+--
+-- Name: order_status_idx7; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX order_status_idx7 ON order_status USING btree (order_status);
+
+
+--
+-- Name: paym_graph_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX paym_graph_idx1 ON paym_graph USING btree (order_);
+
+
+--
+-- Name: paym_graph_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX paym_graph_idx2 ON paym_graph USING btree (customer);
+
+
+--
+-- Name: paym_graph_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX paym_graph_idx3 ON paym_graph USING btree (payment_type);
+
+
+--
+-- Name: paym_graph_idx4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX paym_graph_idx4 ON paym_graph USING btree (due_date);
+
+
+--
+-- Name: paym_graph_idx5; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX paym_graph_idx5 ON paym_graph USING btree (contract);
+
+
+--
+-- Name: paym_graph_idx6; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX paym_graph_idx6 ON paym_graph USING btree (status);
+
+
+--
+-- Name: paym_graph_idx7; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX paym_graph_idx7 ON paym_graph USING btree (paym_graph);
+
+
+--
+-- Name: paym_part_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX paym_part_idx1 ON paym_part USING btree (paym_graph);
+
+
+--
+-- Name: paym_part_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX paym_part_idx2 ON paym_part USING btree (paym_part_type);
+
+
+--
+-- Name: paym_part_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX paym_part_idx3 ON paym_part USING btree (paym_part);
+
+
+--
+-- Name: product_atr_type_value_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX product_atr_type_value_idx1 ON product_atr_type_value USING btree (product_atr_type);
+
+
+--
+-- Name: product_atr_type_value_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX product_atr_type_value_idx2 ON product_atr_type_value USING btree (value_text varchar_pattern_ops);
+
+
+--
+-- Name: product_atr_type_value_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX product_atr_type_value_idx3 ON product_atr_type_value USING btree (product_atr_type_value);
+
+
+--
+-- Name: product_attribute_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX product_attribute_idx1 ON product_attribute USING btree (product);
+
+
+--
+-- Name: product_attribute_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX product_attribute_idx2 ON product_attribute USING btree (product_atr_type_value);
+
+
+--
+-- Name: product_attribute_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX product_attribute_idx3 ON product_attribute USING btree (product_atr_type);
+
+
+--
+-- Name: product_attribute_idx4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX product_attribute_idx4 ON product_attribute USING btree (value_text varchar_pattern_ops);
+
+
+--
+-- Name: product_attribute_idx5; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX product_attribute_idx5 ON product_attribute USING btree (product_attribute);
+
+
+--
+-- Name: product_catalog_atr_type_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX product_catalog_atr_type_idx1 ON product_catalog_atr_type USING btree (product_catalog);
+
+
+--
+-- Name: product_catalog_atr_type_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX product_catalog_atr_type_idx2 ON product_catalog_atr_type USING btree (product_atr_type);
+
+
+--
+-- Name: product_catalog_atr_type_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX product_catalog_atr_type_idx3 ON product_catalog_atr_type USING btree (product_catalog_atr_type);
+
+
+--
+-- Name: product_catalog_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX product_catalog_idx1 ON product_catalog USING btree (product_catalog);
+
+
+--
+-- Name: product_catalog_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX product_catalog_idx2 ON product_catalog USING btree (struct_unit);
+
+
+--
+-- Name: product_catalog_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX product_catalog_idx3 ON product_catalog USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: product_catalog_idx4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX product_catalog_idx4 ON product_catalog USING btree (description varchar_pattern_ops);
+
+
+--
+-- Name: product_catalog_idx5; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX product_catalog_idx5 ON product_catalog USING btree (upper_catalog);
+
+
+--
+-- Name: product_catalog_relation_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX product_catalog_relation_idx1 ON product_catalog_relation USING btree (upper_catalog);
+
+
+--
+-- Name: product_catalog_relation_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX product_catalog_relation_idx2 ON product_catalog_relation USING btree (lower_catalog);
+
+
+--
+-- Name: product_catalog_relation_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX product_catalog_relation_idx3 ON product_catalog_relation USING btree (product_catalog_relation);
+
+
+--
+-- Name: product_catalog_relation_ux1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE UNIQUE INDEX product_catalog_relation_ux1 ON product_catalog_relation USING btree (upper_catalog, lower_catalog);
+
+
+--
+-- Name: product_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX product_idx1 ON product USING btree (product);
+
+
+--
+-- Name: product_idx10; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX product_idx10 ON product USING btree (price);
+
+
+--
+-- Name: product_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX product_idx2 ON product USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: product_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX product_idx3 ON product USING btree (catalog);
+
+
+--
+-- Name: product_idx4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX product_idx4 ON product USING btree (created);
+
+
+--
+-- Name: product_idx5; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX product_idx5 ON product USING btree (updated);
+
+
+--
+-- Name: product_idx6; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX product_idx6 ON product USING btree (description varchar_pattern_ops);
+
+
+--
+-- Name: product_idx7; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX product_idx7 ON product USING btree (enterprise);
+
+
+--
+-- Name: product_idx8; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX product_idx8 ON product USING btree (producer varchar_pattern_ops);
+
+
+--
+-- Name: product_idx9; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX product_idx9 ON product USING btree (code varchar_pattern_ops);
+
+
+--
+-- Name: product_product_catalog_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX product_product_catalog_idx1 ON product_product_catalog USING btree (product);
+
+
+--
+-- Name: product_product_catalog_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX product_product_catalog_idx2 ON product_product_catalog USING btree (product_catalog);
+
+
+--
+-- Name: product_product_catalog_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX product_product_catalog_idx3 ON product_product_catalog USING btree (product_product_catalog);
+
+
+--
+-- Name: product_product_catalog_ux1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE UNIQUE INDEX product_product_catalog_ux1 ON product_product_catalog USING btree (product, product_catalog);
+
+
+--
+-- Name: project_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX project_idx1 ON project USING btree (name);
+
+
+--
+-- Name: project_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX project_idx2 ON project USING btree (struct_unit);
+
+
+--
+-- Name: project_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX project_idx3 ON project USING btree (manager);
+
+
+--
+-- Name: project_idx4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX project_idx4 ON project USING btree (project);
+
+
+--
+-- Name: project_relation_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX project_relation_idx1 ON project_relation USING btree (project);
+
+
+--
+-- Name: project_relation_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX project_relation_idx2 ON project_relation USING btree (project1);
+
+
+--
+-- Name: project_relation_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX project_relation_idx3 ON project_relation USING btree (project, relation_type);
+
+
+--
+-- Name: project_relation_idx4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX project_relation_idx4 ON project_relation USING btree (project_relation);
+
+
+--
+-- Name: project_status_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX project_status_idx1 ON project_status USING btree (project);
+
+
+--
+-- Name: project_status_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX project_status_idx2 ON project_status USING btree (project_status_type);
+
+
+--
+-- Name: project_status_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX project_status_idx3 ON project_status USING btree (status_start);
+
+
+--
+-- Name: project_status_idx4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX project_status_idx4 ON project_status USING btree (status_end);
+
+
+--
+-- Name: project_status_idx5; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX project_status_idx5 ON project_status USING btree (project_status);
+
+
+--
+-- Name: prop_type_atrib_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX prop_type_atrib_idx1 ON prop_type_atrib USING btree (property_atr_type);
+
+
+--
+-- Name: prop_type_atrib_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX prop_type_atrib_idx2 ON prop_type_atrib USING btree (property_type);
+
+
+--
+-- Name: prop_type_atrib_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX prop_type_atrib_idx3 ON prop_type_atrib USING btree (prop_type_atrib);
+
+
+--
+-- Name: property_atr_value_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX property_atr_value_idx1 ON property_atr_value USING btree (property_atr_type);
+
+
+--
+-- Name: property_atr_value_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX property_atr_value_idx2 ON property_atr_value USING btree (value_text varchar_pattern_ops);
+
+
+--
+-- Name: property_atr_value_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX property_atr_value_idx3 ON property_atr_value USING btree (property_atr_value);
+
+
+--
+-- Name: property_attribute_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX property_attribute_idx1 ON property_attribute USING btree (property);
+
+
+--
+-- Name: property_attribute_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX property_attribute_idx2 ON property_attribute USING btree (property_atr_value);
+
+
+--
+-- Name: property_attribute_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX property_attribute_idx3 ON property_attribute USING btree (property_atr_type);
+
+
+--
+-- Name: property_attribute_idx4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX property_attribute_idx4 ON property_attribute USING btree (value_text varchar_pattern_ops);
+
+
+--
+-- Name: property_attribute_idx5; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX property_attribute_idx5 ON property_attribute USING btree (property_attribute);
+
+
+--
+-- Name: property_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX property_idx1 ON property USING btree (property_type);
+
+
+--
+-- Name: property_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX property_idx2 ON property USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: property_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX property_idx3 ON property USING btree (created);
+
+
+--
+-- Name: property_idx4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX property_idx4 ON property USING btree (updated);
+
+
+--
+-- Name: property_idx5; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX property_idx5 ON property USING btree (created_by);
+
+
+--
+-- Name: property_idx6; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX property_idx6 ON property USING btree (updated_by);
+
+
+--
+-- Name: property_idx7; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX property_idx7 ON property USING btree (property);
+
+
+--
+-- Name: property_idx8; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX property_idx8 ON property USING btree (description varchar_pattern_ops);
+
+
+--
+-- Name: property_idx9; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX property_idx9 ON property USING btree (note varchar_pattern_ops);
+
+
+--
+-- Name: property_relation_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX property_relation_idx1 ON property_relation USING btree (property);
+
+
+--
+-- Name: property_relation_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX property_relation_idx2 ON property_relation USING btree (property1);
+
+
+--
+-- Name: property_relation_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX property_relation_idx3 ON property_relation USING btree (property, relation_type);
+
+
+--
+-- Name: property_relation_idx4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX property_relation_idx4 ON property_relation USING btree (property_relation);
+
+
+--
+-- Name: property_status_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX property_status_idx1 ON property_status USING btree (property);
+
+
+--
+-- Name: property_status_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX property_status_idx2 ON property_status USING btree (property_status_type);
+
+
+--
+-- Name: property_status_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX property_status_idx3 ON property_status USING btree (status_start);
+
+
+--
+-- Name: property_status_idx4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX property_status_idx4 ON property_status USING btree (status_end);
+
+
+--
+-- Name: property_status_idx5; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX property_status_idx5 ON property_status USING btree (created);
+
+
+--
+-- Name: property_status_idx6; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX property_status_idx6 ON property_status USING btree (property_status);
+
+
+--
+-- Name: struct_unit_idx1; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX struct_unit_idx1 ON struct_unit USING btree (upper_unit);
+
+
+--
+-- Name: struct_unit_idx2; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX struct_unit_idx2 ON struct_unit USING btree (unit_code);
+
+
+--
+-- Name: struct_unit_idx3; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX struct_unit_idx3 ON struct_unit USING btree (struct_unit);
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+

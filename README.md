@@ -1,4 +1,22 @@
-ecomm
-=====
+Distributed e-commerce system
+=============================
 
-Distributed system course project for TUT IDU0210 "Hajusarhitektuurid" (autumn 2012)
+This is a course project for IDU0210 "Hajusarhitektuurid" ("Architectures of Distributed Systems"), held at Tallinn University of Technology in autumn of 2012.
+
+The goal is to build a system that has its components running on 4-5 separate machines. The domain (e-commerce) is given by the specification, while the choice of technology is up to the students.
+
+Below is the (planned) list of system components:
+
+- Core database (Postgres)
+
+- Core services (Java)
+
+- Contract Management web-client (PHP)
+
+- Customer Management GUI-client (Java/Swing)
+
+- Customer Management GUI-client's backend (Java/Swing)
+
+- Integration component (JMS?)
+
+- Integration component client (Java?)
