@@ -12,9 +12,6 @@ public class ContractSoapService {
     @Resource
     ContractService contractService;
 
-    @PayloadRoot(namespace = "http://ttu.ee/ecomm/schemas", localPart = "CustomerRequest")
-    public Object findCustomers() {
-        return null;
-    }
+
 
 }

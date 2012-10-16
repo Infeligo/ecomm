@@ -16,5 +16,6 @@ public class Contract extends Logged {
     Date validTo;
     String note;
     BigDecimal valueAmount;
+    Customer customer;
 
 }

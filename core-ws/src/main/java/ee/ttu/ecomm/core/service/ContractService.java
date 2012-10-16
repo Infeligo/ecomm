@@ -1,14 +1,17 @@
 package ee.ttu.ecomm.core.service;
 
-import ee.ttu.ecomm.core.domain.Address;
 import ee.ttu.ecomm.core.domain.Contract;
 
 import java.util.List;
 
 public interface ContractService {
 
-    List<Contract> getCustomerContracts(Long customerId);
-    Contract getContract(Long contractId);
-    void concludeContract(Long contractId);
+    List<Contract> getContracts();
+
+    List<Contract> getCustomerContracts(long customerId);
+
+    Contract getContract(long contractId);
+
+    void concludeContract(long contractId);
 
 }
