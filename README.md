@@ -11,11 +11,11 @@ Below is the (planned) list of system components:
 
 - **core-ws** - Core services (Java)
 
-- **client-web** - Contract Management web-client (PHP)
+- **admin-web** - Contract Management web-client (PHP)
 
-- Customer Management GUI-client (Java/Swing)
+- **admin-gui** - Customer Management GUI-client (Java/Swing)
 
-- Customer Management GUI-client's backend (Java/Swing)
+- **admin-gui-proxy** - proxy used by GUI-client (Java)
 
 - Integration component (JMS?)
 
