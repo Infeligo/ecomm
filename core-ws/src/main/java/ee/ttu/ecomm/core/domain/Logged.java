@@ -2,9 +2,13 @@ package ee.ttu.ecomm.core.domain;
 
 import java.util.Date;
 
-public class Logged {
+public interface Logged {
 
-    Date created;
-    Date updated;
+    Date getCreated();
 
+    void setCreated(Date created);
+
+    public Date getUpdated();
+
+    public void setUpdated(Date updated);
 }

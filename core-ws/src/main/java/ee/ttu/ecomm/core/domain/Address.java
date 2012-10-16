@@ -1,12 +1,16 @@
 package ee.ttu.ecomm.core.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Date;
 
 @Entity
 @Table(name="CST_ADDRESS")
-public class Address extends Logged {
+public class Address implements Logged {
 
+    long id;
     String zip;
     String house;
     String address;
@@ -19,6 +23,18 @@ public class Address extends Logged {
     String email;
     String note;
     String country;
+    Date created;
+    Date updated;
+
+    @Id
+    @Column(name = "cst_address")
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getZip() {
         return zip;
@@ -114,5 +130,25 @@ public class Address extends Logged {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    @Override
+    public Date getCreated() {
+        return created;
+    }
+
+    @Override
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    @Override
+    public Date getUpdated() {
+        return updated;
+    }
+
+    @Override
+    public void setUpdated(Date updated) {
+        this.updated = updated;
     }
 }
