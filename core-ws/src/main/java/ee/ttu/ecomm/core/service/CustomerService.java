@@ -12,5 +12,7 @@ public interface CustomerService {
     Customer getCustomerById(long id);
 
     List<Address> getCustomerAddresses(Long customerId);
+    
+    void saveOrUpdate(Customer customer);
 
 }

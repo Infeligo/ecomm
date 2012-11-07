@@ -24,4 +24,14 @@ public class CustomerServiceImpl implements CustomerService {
     public List<Address> getCustomerAddresses(Long customerId) {
         return Ebean.find(Address.class).findList();
     }
+
+	@Override
+	public void saveOrUpdate(Customer customer) {
+		if (customer.getId() == null) {
+			Ebean.save(customer);	
+		} else {
+			Ebean.update(customer);
+		}
+	}	
+
 }

@@ -2,6 +2,8 @@ package ee.ttu.ecomm.core.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
@@ -14,7 +16,7 @@ public class Customer implements Logged {
     String firstName;
     String lastName;
     String identityCode;
-    String birthDate;
+    Date birthDate;
     String note;
     Date created;
     Date updated;
@@ -23,6 +25,7 @@ public class Customer implements Logged {
     }
 
     @Id
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="customer_id")
     @Column(name = "customer")
     public Long getId() {
         return id;
@@ -56,11 +59,11 @@ public class Customer implements Logged {
         this.identityCode = identityCode;
     }
 
-    public String getBirthDate() {
+    public Date getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(String birthDate) {
+    public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }
 
