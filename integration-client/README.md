@@ -10,4 +10,4 @@
 
 ## How to use
 
-Launch launcher, modify config.properties if needed
+Get dependencies, modify config.properties if needed, add config folder to classpath, launch Main
