@@ -12,6 +12,8 @@ public interface ContractService {
 
     Contract getContract(long contractId);
 
+    void saveContract(Contract contract);
+
     void concludeContract(long contractId);
 
 }

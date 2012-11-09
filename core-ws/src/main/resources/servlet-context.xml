@@ -11,5 +11,7 @@
     <mvc:annotation-driven/>
 
     <mvc:resources mapping="/error/**" location="/error/"/>
+    <mvc:resources mapping="/index.html" location="/index.html"/>
+    <mvc:resources mapping="/" location="/index.html"/>
 
 </beans>

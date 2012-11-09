@@ -26,6 +26,11 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
+    public void saveContract(Contract contract) {
+        Ebean.save(contract);
+    }
+
+    @Override
     public void concludeContract(long contractId) {
         throw new UnsupportedOperationException("Contract conclusion is not implemented yet.");
     }

@@ -1,1 +1,71 @@
-Hello, world!
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Core Web Services</title>
+
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+
+    <style>
+        body { padding-top: 50px; font-size: 16px; }
+        table > tbody > tr > td { font-family: Monaco, "Courier New" }
+        h1, h2, h3, h4 { margin-bottom: 0.5em; }
+        p { margin-bottom: 1.0em; }
+    </style>
+</head>
+
+<body>
+
+<script>
+    function request(method, url, data) {
+        return $.ajax({
+            url:url,
+            type:method,
+            data:data,
+            dataType: "json"
+        }).done(function (response) {
+                    console.log("Response:", response);
+                });
+    }
+
+    var CustomerService = {
+
+        findCustomers:function (example) {
+            request("GET", "customers/", example);
+        },
+
+        getCustomer:function (id) {
+            request("GET", "customers/" + id);
+        }
+
+    }
+</script>
+
+<div class="container">
+    <h1>You are at the Core!</h1>
+    <h3>Contract services (SOAP)</h3>
+    <h3>Customer services (REST)</h3>
+    <p>The (really) easiest way to test RESTful customer services is to open
+        your browser's console (Ctrl+Shift+J in Chrome) and call these functions:</p>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Method</th>
+            <th>Example</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>CustomerService.findCustomers(example)</td>
+            <td>CustomerService.findCustomers({ firstName: "John" })</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+
+</html>

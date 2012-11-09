@@ -18,6 +18,6 @@ Build webapp and either deploy it to server or use Jetty plugin.
 
 ## List of services (REST)
 
-GET /rest/customers
-GET /rest/customer/{id}
-GET /rest/customer/{id}/addresses
+GET /rest/customers/
+GET /rest/customers/{id}
+GET /rest/customers/{id}/addresses
