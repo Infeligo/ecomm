@@ -22,7 +22,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer getCustomer(long id) {
+    public Customer getCustomerById(long id) {
         return Ebean.find(Customer.class, id);
     }
 
@@ -51,14 +51,5 @@ public class CustomerServiceImpl implements CustomerService {
         Address address = getAddress(customerId, addressId);
         Ebean.delete(address);
     }
-
-	@Override
-	public void saveOrUpdate(Customer customer) {
-		if (customer.getId() == null) {
-			Ebean.save(customer);	
-		} else {
-			Ebean.update(customer);
-		}
-	}	
 
 }

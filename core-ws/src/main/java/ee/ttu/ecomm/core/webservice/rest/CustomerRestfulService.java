@@ -28,7 +28,7 @@ public class CustomerRestfulService {
     @RequestMapping(value = "/{customerId}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public Customer getCustomer(@PathVariable("customerId") long customerId) {
-        return customerService.getCustomer(customerId);
+        return customerService.getCustomerById(customerId);
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST, produces = "application/json")
