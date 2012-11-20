@@ -1,15 +1,8 @@
-package ee.ttu.ecomm.core.domain;
+package ee.ttu.ecomm.client.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.util.Date;
 
-@Entity
-@Table(name = "CUSTOMER")
+
 public class Customer implements Logged {
 
     Long id;
@@ -24,9 +17,7 @@ public class Customer implements Logged {
     public Customer() {
     }
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="customer_id")
-    @Column(name = "customer")
+
     public Long getId() {
         return id;
     }

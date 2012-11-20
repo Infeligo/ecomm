@@ -1,0 +1,48 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:sws="http://www.springframework.org/schema/web-services"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+  http://www.springframework.org/schema/web-services http://www.springframework.org/schema/web-services/web-services-2.0.xsd
+  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	
+	
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    	<property name="locations">
+       		<list>
+         		<value>classpath:config.properties</value>
+      		</list>
+    	</property>
+	</bean>
+
+	<bean id="clientDatasource" class="edu.sofja.client.ClientDatasource">
+		<property name="springRestClient" ref="springRestClient" />
+	</bean>
+	
+	<bean id="springRestClient" class="edu.sofja.client.SpringRestClient">
+		<property name="restTemplate" ref="restTemplate" />
+		<property name="url"><value>${core.ws.url}</value></property>
+	</bean>
+
+	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+	<!--
+        <property name="messageConverters">
+            <list>
+                <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+                	<property name="supportedMediaTypes">
+            			<list>
+            				<bean id="htmlMediaType" class="org.springframework.http.MediaType">
+    							<constructor-arg value="text"/>
+    							<constructor-arg value="javascript"/>
+							</bean>            				
+                		</list>
+                	</property>
+                </bean>                
+            </list>
+        </property>
+        -->
+    </bean>
+
+
+</beans>
