@@ -26,15 +26,7 @@
     <servlet>
         <servlet-name>core-rest</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-    </servlet>
-
-    <servlet>
-        <servlet-name>core-soap</servlet-name>
-        <servlet-class>org.springframework.ws.transport.http.MessageDispatcherServlet</servlet-class>
-        <init-param>
-            <param-name>transformWsdlLocations</param-name>
-            <param-value>true</param-value>
-        </init-param>
+        <load-on-startup>1</load-on-startup>
     </servlet>
 
 
@@ -50,11 +42,6 @@
     <servlet-mapping>
         <servlet-name>core-rest</servlet-name>
         <url-pattern>/rest/*</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>core-soap</servlet-name>
-        <url-pattern>/soap/*</url-pattern>
     </servlet-mapping>
 
     <error-page>
