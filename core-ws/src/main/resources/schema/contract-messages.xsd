@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://ttu.ee/ecomm/schemas/messages"
+        xmlns:tns="http://ttu.ee/ecomm/schemas/messages"
+        elementFormDefault="qualified">
+
+    <complexType name="Contract">
+        <sequence>
+            <element name="contractNumber" type="tns:ContractNumber"/>
+            <element name="name" type="string"/>
+            <element name="description" type="string"/>
+            <element name="validFrom" type="date"/>
+            <element name="validTo" type="date"/>
+            <element name="updated" type="dateTime"/>
+        </sequence>
+    </complexType>
+
+    <simpleType name="ContractNumber">
+        <restriction base="string">
+            <pattern value="[1-9][0-9]*"/>
+        </restriction>
+    </simpleType>
+
+    <element name="FindContractsRequest">
+        <complexType>
+            <all>
+                <element name="from" type="date"/>
+                <element name="to" type="date"/>
+            </all>
+        </complexType>
+    </element>
+
+    <element name="GetContractRequest" type="tns:ContractNumber" />
+
+    <element name="SaveContractRequest" type="tns:Contract" />
+
+    <element name="AcceptContractRequest">
+        <complexType>
+            <all>
+                <element name="contractNumber" type="tns:ContractNumber"/>
+            </all>
+        </complexType>
+    </element>
+
+    <element name="RejectContractRequest">
+        <complexType>
+            <all>
+                <element name="contractNumber" type="tns:ContractNumber"/>
+            </all>
+        </complexType>
+    </element>
+
+    <element name="FindContractResponse">
+        <complexType>
+            <sequence>
+                <element name="contract" type="tns:Contract" minOccurs="0" maxOccurs="unbounded"/>
+            </sequence>
+        </complexType>
+    </element>
+
+    <element name="SaveContractResponse" type="tns:ContractNumber"/>
+
+    <element name="GetContractResponse" type="tns:Contract"/>
+
+    <element name="AcceptContractResponse" type="boolean"/>
+
+    <element name="RejectContractResponse" type="boolean"/>
+</schema>

@@ -11,13 +11,8 @@ public class ContractServiceImpl implements ContractService {
 
 
     @Override
-    public List<Contract> getContracts() {
+    public List<Contract> findContracts() {
         return Ebean.find(Contract.class).findList();
-    }
-
-    @Override
-    public List<Contract> getCustomerContracts(long customerId) {
-        return Ebean.find(Contract.class).where().eq("customer.id", customerId).findList();
     }
 
     @Override
@@ -31,7 +26,16 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
-    public void concludeContract(long contractId) {
-        throw new UnsupportedOperationException("Contract conclusion is not implemented yet.");
+    public void acceptContract(long contractId) {
+        Contract contract = this.getContract(contractId);
+        // Set accepted state
+        // Save contract
+    }
+
+    @Override
+    public void rejectContract(long contractId) {
+        Contract contract = this.getContract(contractId);
+        // Set rejected state
+        // Save contract
     }
 }

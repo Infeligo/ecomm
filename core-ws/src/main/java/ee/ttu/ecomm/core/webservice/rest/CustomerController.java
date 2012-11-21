@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("customers")
-public class CustomerRestfulService {
+public class CustomerController {
 
     @Resource
     CustomerService customerService;
@@ -28,7 +28,7 @@ public class CustomerRestfulService {
     @RequestMapping(value = "/{customerId}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public Customer getCustomer(@PathVariable("customerId") long customerId) {
-        return customerService.getCustomerById(customerId);
+        return customerService.getCustomer(customerId);
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST, produces = "application/json")

@@ -22,7 +22,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer getCustomerById(long id) {
+    public Customer getCustomer(long id) {
         return Ebean.find(Customer.class, id);
     }
 

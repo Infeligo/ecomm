@@ -9,7 +9,7 @@ public interface CustomerService {
 
     List<Customer> findCustomers(Customer example);
 
-    Customer getCustomerById(long id);
+    Customer getCustomer(long id);
 
     void saveCustomer(Customer customer);
 

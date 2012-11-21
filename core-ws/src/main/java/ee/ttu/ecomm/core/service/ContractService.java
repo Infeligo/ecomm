@@ -6,14 +6,14 @@ import java.util.List;
 
 public interface ContractService {
 
-    List<Contract> getContracts();
-
-    List<Contract> getCustomerContracts(long customerId);
+    List<Contract> findContracts();
 
     Contract getContract(long contractId);
 
     void saveContract(Contract contract);
 
-    void concludeContract(long contractId);
+    void acceptContract(long contractId);
+
+    void rejectContract(long contractId);
 
 }
