@@ -18,9 +18,9 @@
                     <scanIntervalSeconds>10</scanIntervalSeconds>
                     <stopKey>foo</stopKey>
                     <stopPort>9999</stopPort>
-                    <webApp>
+                    <webAppConfig>
                         <contextPath>/core</contextPath>
-                    </webApp>
+                    </webAppConfig>
                 </configuration>
             </plugin>
         </plugins>
