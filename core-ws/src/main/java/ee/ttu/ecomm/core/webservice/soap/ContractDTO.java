@@ -1,16 +1,13 @@
-package ee.ttu.ecomm.core.domain;
+package ee.ttu.ecomm.core.webservice.soap;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlTransient;
+import ee.ttu.ecomm.core.domain.Contract;
+import ee.ttu.ecomm.core.domain.Customer;
+import org.springframework.beans.BeanUtils;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
-@Entity
-@Table(name = "CONTRACT")
-public class Contract implements Logged {
+public class ContractDTO {
 
     Long id;
     String contractNumber;
@@ -20,12 +17,8 @@ public class Contract implements Logged {
     Date validTo;
     String note;
     BigDecimal valueAmount;
-    Customer customer;
-    Date created;
-    Date updated;
+    Long customerId;
 
-    @Id
-    @Column(name = "contract")
     public Long getId() {
         return id;
     }
@@ -34,7 +27,6 @@ public class Contract implements Logged {
         this.id = id;
     }
 
-    @Column(name = "cnt_number")
     public String getContractNumber() {
         return contractNumber;
     }
@@ -91,31 +83,21 @@ public class Contract implements Logged {
         this.valueAmount = valueAmount;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public Long getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
     }
 
-    @Override
-    public Date getCreated() {
-        return created;
+    public Contract toContract() {
+        Contract contract = new Contract();
+        BeanUtils.copyProperties(this, contract);
+        Customer customer = new Customer();
+        customer.setId(this.getCustomerId());
+        contract.setCustomer(customer);
+        return contract;
     }
 
-    @Override
-    public void setCreated(Date created) {
-        this.created = created;
-    }
-
-    @Override
-    public Date getUpdated() {
-        return updated;
-    }
-
-    @Override
-    public void setUpdated(Date updated) {
-        this.updated = updated;
-    }
 }
