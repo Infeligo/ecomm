@@ -5,12 +5,7 @@
 <meta name="author" content="">
 
 <link href="/admin/css/bootstrap.css" rel="stylesheet">
-<style>
-    body {
-        padding-top: 60px;
-    }
-</style>
-<link href="/admin/css/bootstrap-responsive.css" rel="stylesheet">
+<link href="/admin/css/custom.css" rel="stylesheet">
 
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
@@ -18,4 +13,6 @@
 <![endif]-->
 
 <script src="/admin/js/jquery.js"></script>
-<script src="/admin/js/bootstrap.min.js"></script>
+<script src="/admin/js/bootstrap.js"></script>
+<script src="/admin/js/underscore.js"></script>
+<script src="/admin/js/utils.js"></script>

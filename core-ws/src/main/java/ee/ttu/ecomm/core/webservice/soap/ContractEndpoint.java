@@ -32,14 +32,4 @@ public class ContractEndpoint {
         contractService.saveContract(contractDTO.toContract());
     }
 
-    @WebMethod
-    public void acceptContract(@WebParam(name = "id") long contractId) {
-        contractService.acceptContract(contractId);
-    }
-
-    @WebMethod
-    public void rejectContract(@WebParam(name = "id") long contractId) {
-        contractService.rejectContract(contractId);
-    }
-
 }

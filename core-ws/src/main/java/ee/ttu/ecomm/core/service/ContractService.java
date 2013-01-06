@@ -12,8 +12,4 @@ public interface ContractService {
 
     void saveContract(Contract contract);
 
-    void acceptContract(long contractId);
-
-    void rejectContract(long contractId);
-
 }

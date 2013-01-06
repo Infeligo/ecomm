@@ -25,17 +25,4 @@ public class ContractServiceImpl implements ContractService {
         Ebean.save(contract);
     }
 
-    @Override
-    public void acceptContract(long contractId) {
-        Contract contract = this.getContract(contractId);
-        // Set accepted state
-        // Save contract
-    }
-
-    @Override
-    public void rejectContract(long contractId) {
-        Contract contract = this.getContract(contractId);
-        // Set rejected state
-        // Save contract
-    }
 }

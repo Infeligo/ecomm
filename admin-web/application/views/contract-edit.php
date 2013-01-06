@@ -14,7 +14,7 @@
             $('#save').on('click', function (e) {
                 e.preventDefault();
                 $.ajax({
-                    url: "/admin/contracts/edit",
+                    url: "/admin/contracts/update",
                     type: "POST",
                     dataType: "json",
                     data: $('#contract').serialize()
@@ -23,21 +23,6 @@
                     alert("Contract was successfully saved!");
                 }).fail(function () {
                     alert("Error saving contract");
-                });
-            });
-
-            $('#accept').on('click', function (e) {
-                e.preventDefault();
-                $.ajax({
-                    url: "/admin/contracts/accept",
-                    type: "post",
-                    dataType: "json",
-                    data: { id: $().val() }
-                }).done(function (result) {
-                    console.log(result);
-                    alert("Contract was accepted!");
-                }).fail(function () {
-                    alert("Error accepting the contract!");
                 });
             });
         });
@@ -95,9 +80,7 @@
             </div>
 
             <div class="form-actions">
-                <button type="submit" id="save" class="btn btn-primary">Save changes</button>
-                <button type="button" id="accept" class="btn btn-success">Accept</button>
-                <button type="button" id="reject" class="btn btn-danger">Reject</button>
+                <button type="submit" id="save" class="btn btn-large btn-primary">Save</button>
             </div>
         </form>
 

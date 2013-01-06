@@ -9,6 +9,8 @@ public interface CustomerService {
 
     List<Customer> findCustomers(Customer example);
 
+    List<Customer> findCustomers(String query);
+
     Customer getCustomer(long id);
 
     void saveCustomer(Customer customer);

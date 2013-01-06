@@ -8,7 +8,11 @@
     <div class="container">
         <?= View::factory("partials/header") ?>
 
-        <h3>Recent contracts</h3>
+        <h2>Contracts</h2>
+
+        <a href="new" class="btn btn-large btn-primary"><i class="icon-plus"></i> Create new</a>
+
+        <h3>Latest contracts</h3>
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -27,7 +31,7 @@
                     <td><?= $contract->note ?></td>
                     <td><?= date_create($contract->validFrom)->format('Y-m-d'); ?> &ndash;
                         <?= date_create($contract->validTo)->format('Y-m-d'); ?></td>
-                    <td><a href="/admin/contracts/view/<?= $contract->id ?>" class="btn btn-small">View</a></td>
+                    <td><a href="/admin/contracts/edit/<?= $contract->id ?>" class="btn btn-small">Edit</a></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>

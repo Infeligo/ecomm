@@ -8,6 +8,7 @@ import com.avaje.ebeaninternal.server.expression.DefaultExampleExpression;
 import ee.ttu.ecomm.core.domain.Address;
 import ee.ttu.ecomm.core.domain.Customer;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.expression.spel.ExpressionState;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +20,25 @@ public class CustomerServiceImpl implements CustomerService {
     public List<Customer> findCustomers(Customer example) {
         if (example == null) throw new IllegalArgumentException("Example can not be bull");
         return Ebean.find(Customer.class).where().iexampleLike(example).findList();
+    }
+
+    @Override
+    public List<Customer> findCustomers(String search) {
+        if (search == null) search = "";
+
+        String[] searchTokens = search.split(" ");
+        ExpressionList<Customer> query = Ebean.find(Customer.class).where();
+
+        for (String searchToken : searchTokens) {
+            String s = searchToken.trim();
+            if (s.length() == 0) continue;
+            query.disjunction()
+                .ilike("firstName", s.trim() + "%")
+                .ilike("lastName", s.trim() + "%")
+                .endJunction();
+        }
+
+        return query.findList();
     }
 
     @Override
