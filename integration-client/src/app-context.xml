@@ -16,11 +16,11 @@
     	</property>
 	</bean>
 
-	<bean id="clientDatasource" class="edu.sofja.client.ClientDatasource">
+	<bean id="clientDatasource" class="ee.ttu.ecomm.client.ClientDatasource">
 		<property name="springRestClient" ref="springRestClient" />
 	</bean>
 	
-	<bean id="springRestClient" class="edu.sofja.client.SpringRestClient">
+	<bean id="springRestClient" class="ee.ttu.ecomm.client.SpringRestClient">
 		<property name="restTemplate" ref="restTemplate" />
 		<property name="url"><value>${core.ws.url}</value></property>
 	</bean>
