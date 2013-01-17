@@ -2,6 +2,9 @@ package ee.ttu.ecomm.events;
 
 import org.eclipse.jetty.websocket.WebSocket;
 import org.eclipse.jetty.websocket.WebSocketServlet;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -13,22 +16,31 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class MonitoringServlet extends WebSocketServlet {
+public class MonitoringServlet extends WebSocketServlet implements EventProcessor {
 
     private final Set<MonitoringWebSocket> clients = new CopyOnWriteArraySet<MonitoringWebSocket>();
     private ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+
+    EventListener eventListener;
 
     @Override
     public void init() throws ServletException {
         System.out.println("Initializing servlet");
         super.init();
+        WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(this.getServletContext());
+        eventListener = context.getBean(EventListener.class);
+        eventListener.addEventProcessor(this);
+        //startCheckMessages();
+    }
+
+    public void startCheckMessages() {
         executorService.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
                 System.out.println("Running Server Message Sending");
-                for(MonitoringWebSocket client : clients){
+                for (MonitoringWebSocket client : clients) {
                     System.out.println("Trying to send to Member!");
-                    if(client.isOpen()){
+                    if (client.isOpen()) {
                         System.out.println("Sending!");
                         try {
                             client.sendMessage("Message sent at " + new Date() + "\n");
@@ -38,7 +50,22 @@ public class MonitoringServlet extends WebSocketServlet {
                     }
                 }
             }
-        }, 5, 5, TimeUnit.SECONDS);
+        }, 25, 25, TimeUnit.SECONDS);
+    }
+
+    @Override
+    public void processEvent(String event) {
+        System.out.println("Processing event");
+        for (MonitoringWebSocket client : clients) {
+            if (client.isOpen()) {
+                System.out.println("Sending!");
+                try {
+                    client.sendMessage(event);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     @Override
