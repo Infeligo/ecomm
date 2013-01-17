@@ -94,4 +94,8 @@ public class Customer implements Logged {
     public void setUpdated(Date updated) {
         this.updated = updated;
     }
+
+    public String getFullName() {
+        return getFirstName() + " " + getLastName();
+    }
 }

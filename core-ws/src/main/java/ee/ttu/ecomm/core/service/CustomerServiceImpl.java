@@ -8,13 +8,18 @@ import com.avaje.ebeaninternal.server.expression.DefaultExampleExpression;
 import ee.ttu.ecomm.core.domain.Address;
 import ee.ttu.ecomm.core.domain.Customer;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.expression.spel.ExpressionState;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
+
+    @Autowired
+    JmsTemplate jmsTemplate;
 
     @Override
     public List<Customer> findCustomers(Customer example) {
@@ -48,7 +53,13 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void saveCustomer(Customer customer) {
+        boolean isNew = customer.getId() == null;
         Ebean.save(customer);
+        if (isNew) {
+            jmsTemplate.convertAndSend("Created customer " + customer.getFullName() + " (ID=" + customer.getId() + ")");
+        } else {
+            jmsTemplate.convertAndSend("Updated customer " + customer.getFullName() + " (ID=" + customer.getId() + ")");
+        }
     }
 
     @Override
@@ -64,12 +75,14 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void saveAddress(long customerId, Address address) {
         Ebean.save(address);
+        jmsTemplate.convertAndSend("Saved address ID=" + address.getId() + " for customer ID=" + customerId);
     }
 
     @Override
     public void deleteAddress(long customerId, long addressId) {
         Address address = getAddress(customerId, addressId);
         Ebean.delete(address);
+        jmsTemplate.convertAndSend("Deleted address ID=" + addressId + " for customer ID=" + customerId);
     }
 
 }

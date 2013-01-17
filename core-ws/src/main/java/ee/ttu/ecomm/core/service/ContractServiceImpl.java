@@ -11,6 +11,9 @@ import java.util.List;
 @Service
 public class ContractServiceImpl implements ContractService {
 
+    @Autowired
+    JmsTemplate jmsTemplate;
+
     @Override
     public List<Contract> findContracts() {
         return Ebean.find(Contract.class).findList();
@@ -23,7 +26,13 @@ public class ContractServiceImpl implements ContractService {
 
     @Override
     public Long saveContract(Contract contract) {
+        boolean isNew = contract.getId() == null;
         Ebean.save(contract);
+        if (isNew) {
+            jmsTemplate.convertAndSend("Created new contract with ID=" + contract.getId());
+        } else {
+            jmsTemplate.convertAndSend("Updated contract with ID=" + contract.getId());
+        }
         return contract.getId();
     }
 

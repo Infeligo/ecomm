@@ -11,6 +11,12 @@
         <property name="baseAddress" value="http://localhost:8081/core/soap/"/>
     </bean>
 
+    <amq:broker id="broker" useJmx="false" persistent="false">
+        <amq:transportConnectors>
+            <amq:transportConnector uri="tcp://localhost:9091"/>
+        </amq:transportConnectors>
+    </amq:broker>
+
     <amq:queue id="destination" physicalName="ee.ttu.ecomm.core.events"/>
 
     <amq:connectionFactory id="jmsFactory" brokerURL="tcp://localhost:9091"/>
