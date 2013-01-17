@@ -1,14 +1,23 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:amq="http://activemq.apache.org/schema/core"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd">
 
     <context:component-scan base-package="ee.ttu.ecomm.core.service,ee.ttu.ecomm.core.domain,ee.ttu.ecomm.core.webservice.soap"/>
 
     <bean class= "org.springframework.remoting.jaxws.SimpleJaxWsServiceExporter">
         <!-- Make baseAddress a property -->
-        <property name="baseAddress" value="http://localhost:8080/core/soap/"/>
+        <property name="baseAddress" value="http://localhost:8081/core/soap/"/>
+    </bean>
+
+    <amq:queue id="destination" physicalName="ee.ttu.ecomm.core.events"/>
+
+    <amq:connectionFactory id="jmsFactory" brokerURL="tcp://localhost:9091"/>
+
+    <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory" ref="jmsFactory" />
+        <property name="defaultDestination" ref="destination" />
     </bean>
 
 </beans>
