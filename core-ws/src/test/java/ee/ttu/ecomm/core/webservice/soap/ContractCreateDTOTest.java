@@ -8,13 +8,12 @@ import java.util.Date;
 
 import static junit.framework.Assert.assertEquals;
 
-public class ContractDTOTest {
+public class ContractCreateDTOTest {
 
     @Test
     public void testToContract() throws Exception {
-        ContractDTO contractDTO = new ContractDTO();
+        ContractCreateDTO contractDTO = new ContractCreateDTO();
         contractDTO.setId(100L);
-        contractDTO.setContractNumber("FOO");
         contractDTO.setName("baz");
         contractDTO.setDescription("bar");
         contractDTO.setValidFrom(new Date());
@@ -22,7 +21,6 @@ public class ContractDTOTest {
         contractDTO.setValueAmount(BigDecimal.TEN);
         contractDTO.setCustomerId(100L);
         Contract contract = contractDTO.toContract();
-        assertEquals(contract.getContractNumber(), contractDTO.getContractNumber());
         assertEquals(contract.getCustomer().getId(), contractDTO.getCustomerId());
     }
 

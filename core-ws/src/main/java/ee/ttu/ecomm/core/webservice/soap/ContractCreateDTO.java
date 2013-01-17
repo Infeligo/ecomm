@@ -1,38 +1,30 @@
 package ee.ttu.ecomm.core.webservice.soap;
 
+import ee.ttu.ecomm.core.domain.Address;
 import ee.ttu.ecomm.core.domain.Contract;
 import ee.ttu.ecomm.core.domain.Customer;
 import org.springframework.beans.BeanUtils;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.Date;
 
-public class ContractDTO {
+public class ContractCreateDTO {
 
-    Long id;
-    String contractNumber;
+    Long addressId;
     String name;
     String description;
     Date validFrom;
-    Date validTo;
-    String note;
+    int period;
     BigDecimal valueAmount;
     Long customerId;
 
-    public Long getId() {
-        return id;
+    public Long getAddressId() {
+        return addressId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getContractNumber() {
-        return contractNumber;
-    }
-
-    public void setContractNumber(String contractNumber) {
-        this.contractNumber = contractNumber;
+    public void setAddressId(Long addressId) {
+        this.addressId = addressId;
     }
 
     public String getName() {
@@ -59,20 +51,12 @@ public class ContractDTO {
         this.validFrom = validFrom;
     }
 
-    public Date getValidTo() {
-        return validTo;
+    public int getPeriod() {
+        return period;
     }
 
-    public void setValidTo(Date validTo) {
-        this.validTo = validTo;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
+    public void setPeriod(int period) {
+        this.period = period;
     }
 
     public BigDecimal getValueAmount() {
@@ -94,10 +78,29 @@ public class ContractDTO {
     public Contract toContract() {
         Contract contract = new Contract();
         BeanUtils.copyProperties(this, contract);
+
+        // Set customer
         Customer customer = new Customer();
         customer.setId(this.getCustomerId());
         contract.setCustomer(customer);
+
+        // Set address
+        Address address = new Address();
+        Long addressId = this.getAddressId();
+        address.setId(addressId);
+        contract.setAddress(address);
+
+        // Set valid to date
+        contract.setValidTo(calculateValidTo(getValidFrom(), getPeriod()));
         return contract;
+    }
+
+    public static Date calculateValidTo(Date validFrom, int period) {
+        assert validFrom != null;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(validFrom);
+        calendar.add(Calendar.MONTH, period);
+        return calendar.getTime();
     }
 
 }

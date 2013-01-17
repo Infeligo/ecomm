@@ -9,3 +9,20 @@ body {
 .column-fullname {
     width: 260px;
 }
+
+div.controls > span {
+    line-height: 30px;
+}
+
+div.section {
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+input.error {
+    border-color: #b94a48;
+}
+
+label.error {
+    color: #b94a48;
+}

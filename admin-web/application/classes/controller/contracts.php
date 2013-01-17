@@ -4,8 +4,8 @@ class Controller_Contracts extends Controller {
 
     public function before()
     {
-        $this->contractService = new SoapClient("http://localhost:8080/core/soap/ContractService?wsdl", array('cache_wsdl' => WSDL_CACHE_MEMORY));
-        $this->customerService = new SoapClient("http://localhost:8080/core/soap/CustomerService?wsdl", array('cache_wsdl' => WSDL_CACHE_MEMORY));
+        $this->contractService = new SoapClient("http://localhost:8081/core/soap/ContractService?wsdl", array('cache_wsdl' => WSDL_CACHE_NONE));
+        $this->customerService = new SoapClient("http://localhost:8081/core/soap/CustomerService?wsdl", array('cache_wsdl' => WSDL_CACHE_MEMORY));
     }
 
     public function action_index()
@@ -37,7 +37,7 @@ class Controller_Contracts extends Controller {
         echo json_encode($customer);
     }
 
-    public function action_edit()
+    public function action_view()
     {
         $view = View::factory("contract-view");
         $id = $this->request->param("id");
@@ -45,13 +45,32 @@ class Controller_Contracts extends Controller {
         $this->response->body($view);
     }
 
-    public function action_update() {
+    public function action_update()
+    {
+        $this->contractService->updateContract(array(
+            "contract" => array(
+                "id" => $this->request->post("id"),
+                "name" => $this->request->post("name"),
+                "description" => $this->request->post("description")
+            )
+        ));
         echo json_encode("ok");
     }
 
     public function action_create()
     {
-        echo json_encode("ok");
+        $result = $this->contractService->createContract(array(
+            "contract" => array(
+                "name" => $this->request->post("name"),
+                "description" => $this->request->post("description"),
+                "valueAmount" => $this->request->post("valueAmount"),
+                "validFrom" => $this->request->post("validFrom"),
+                "period" => $this->request->post("period"),
+                "customerId" => $this->request->post("customerId"),
+                "addressId" => $this->request->post("addressId")
+            )
+        ));
+        echo json_encode($result);
     }
 
 } // End Welcome

@@ -8,30 +8,27 @@
     <div class="container">
         <?= View::factory("partials/header") ?>
 
-        <h2>Contracts</h2>
+        <h3>Contracts</h3>
 
-        <a href="new" class="btn btn-large btn-primary"><i class="icon-plus"></i> Create new</a>
+        <div class="section">
+            <a href="contracts/new" class="btn btn-large btn-primary"><i class="icon-plus"></i> Create new</a>
+        </div>
 
-        <h3>Latest contracts</h3>
-        <table class="table table-bordered">
+        <table class="table table-bordered" style="width: auto">
             <thead>
                 <tr>
-                    <th>Contract Nr.</th>
+                    <th>ID</th>
                     <th>Name</th>
-                    <th>Notes</th>
-                    <th>Valid</th>
-                    <th>Actions</th>
+                    <th>Period</th>
                 </tr>
             </thead>
             <tbody>
             <?php foreach($contracts as $contract): ?>
                 <tr>
-                    <td><a href="/admin/contracts/view/<?= $contract->id ?>"><?= $contract->contractNumber ?></a></td>
-                    <td><?= $contract->name ?></td>
-                    <td><?= $contract->note ?></td>
+                    <td><a href="/admin/contracts/<?= $contract->id ?>"><?= $contract->id ?></a></td>
+                    <td><a href="/admin/contracts/<?= $contract->id ?>"><?= $contract->name ?></a></td>
                     <td><?= date_create($contract->validFrom)->format('Y-m-d'); ?> &ndash;
                         <?= date_create($contract->validTo)->format('Y-m-d'); ?></td>
-                    <td><a href="/admin/contracts/edit/<?= $contract->id ?>" class="btn btn-small">Edit</a></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>

@@ -60,11 +60,30 @@
 <div class="container">
     <h1>You are at the Core!</h1>
 
-    <h3>Contract services (SOAP)</h3>
+    <h3>SOAP services</h3>
 
-    <h3>Customer services (REST)</h3>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Endpoint</th>
+            <th>WSDL</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Contract endpoint</td>
+            <td><a href="http://localhost:8081/core/soap/ContractService?wsdl">http://localhost:8081/core/soap/ContractService?wsdl</a></td>
+        </tr>
+        <tr>
+            <td>Customer endpoint</td>
+            <td><a href="http://localhost:8081/core/soap/CustomerService?wsdl">http://localhost:8081/core/soap/CustomerService?wsdl</a></td>
+        </tr>
+        </tbody>
+    </table>
 
-    <p>The (really) easiest way to test RESTful customer services is to open
+    <h3>RESTful services</h3>
+
+    <p>The (really) easiest way to test RESTful services is to open
         your browser's console (Ctrl+Shift+J in Chrome) and call these functions:</p>
     <table class="table table-bordered">
         <thead>

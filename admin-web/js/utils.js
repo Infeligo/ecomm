@@ -11,3 +11,8 @@ _.templateSettings = {
     interpolate : /<@=([\s\S]+?)@>/g,
     escape      : /<@-([\s\S]+?)@>/g
 };
+
+$(function () {
+    $('.date').datepicker();
+    $('.date.today').datepicker('setValue', new Date());
+});

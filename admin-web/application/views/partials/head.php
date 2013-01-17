@@ -13,6 +13,10 @@
 <![endif]-->
 
 <script src="/admin/js/jquery.js"></script>
+<script src="/admin/js/jquery.validate.js"></script>
+<script src="/admin/js/sugar.js"></script>
 <script src="/admin/js/bootstrap.js"></script>
+<script src="/admin/js/bootstrap-datepicker.js"></script>
 <script src="/admin/js/underscore.js"></script>
+<script src="/admin/js/autoNumeric.js"></script>
 <script src="/admin/js/utils.js"></script>

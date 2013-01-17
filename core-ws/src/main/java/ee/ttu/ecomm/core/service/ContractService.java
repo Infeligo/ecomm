@@ -10,6 +10,6 @@ public interface ContractService {
 
     Contract getContract(long contractId);
 
-    void saveContract(Contract contract);
+    Long saveContract(Contract contract);
 
 }

@@ -28,8 +28,15 @@ public class ContractEndpoint {
     }
 
     @WebMethod
-    public void saveContract(@WebParam(name = "contract") ContractDTO contractDTO) {
-        contractService.saveContract(contractDTO.toContract());
+    public Long createContract(@WebParam(name = "contract") ContractCreateDTO c) {
+        return contractService.saveContract(c.toContract());
+    }
+
+    @WebMethod
+    public void updateContract(@WebParam(name = "contract") ContractUpdateDTO c) {
+        Contract contract = contractService.getContract(c.getId());
+        c.updateContract(contract);
+        contractService.saveContract(contract);
     }
 
 }

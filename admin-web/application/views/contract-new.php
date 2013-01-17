@@ -29,17 +29,19 @@
 
         var displayContractDetails = function (data) {
             console.debug("Displaying customer details", data);
+            $contractDetails.find('[name=customerId]').val(data.id);
             $contractDetails.find('[data-name=fullname]').text(data.firstName + " " + data.lastName);
             $contractDetails.find('[data-name=identityCode]').text(data.identityCode);
+            $contractDetails.find('[data-name=birthDate]').text(data.birthDate.substr(0, 10));
 
             var addresses = ensureArray(data.addresses);
             var $addresses = $contractDetails.find('[name=address]').empty();
             _.each(addresses, function (el) {
-                var addr = "foo";
-                $addresses.append('<option value="' + el.id + '">' + addr + '</option>');
+                $addresses.append('<option value="{id}">{address}, {house}, {townCounty}</option>'.assign(el));
             });
 
             $contractDetails.show();
+            $contractDetails.find('[name=name]').focus();
         }
 
         $(function () {
@@ -47,7 +49,7 @@
             $contractDetails = $('#contractDetails');
             renderCustomers = _.template($('#customersTempl').html());
 
-            $customerSearch.on('click', 'input:submit', function (e) {
+            $customerSearch.on('click', '#search', function (e) {
                 e.preventDefault();
                 var query = $customerSearch.find('[name="name"]').val();
                 findCustomers(query).done(displayCustomers);
@@ -60,9 +62,41 @@
                 getCustomer(customerId).done(displayContractDetails);
             });
 
-            $contractDetails.on('click', 'input:submit', function (e) {
+            $contractDetails.on('click', '#create', function (e) {
                 e.preventDefault();
+                console.log('Creating');
+                if ($contractDetails.find('form').valid()) {
+                    $.ajax({
+                        url: "create",
+                        type: "POST",
+                        data: $contractDetails.find('form').serialize(),
+                        dataType: "json"
+                    }).done(function (result) {
+                        console.log(result);
+                        alert("Contract was successfully saved!");
+                        window.location = result.return;
+                    }).fail(function () {
+                        alert("Error saving contract");
+                    });
+                }
             });
+
+            $('[name="valueAmount"]').autoNumeric('init', {
+                aSep: "",
+                vMin: -0.00,
+                vMax: 999999999.99
+            });
+
+            $contractDetails.find('form').validate();
+
+            $('#search').popover({
+                placement: 'right',
+                trigger: 'hover',
+                html: true,
+                title: "Suggestions",
+                content: "Try <i>tamm</i>, <i>maarika</i>, <i>maarika tamm</i>"
+            })
+
         });
     })();
 </script>
@@ -70,14 +104,15 @@
 <div class="container">
     <?= View::factory("partials/header") ?>
 
-    <h2>New contract</h2>
+    <h3><a href="/admin/contracts">Contracts</a> &rarr; New contract</h3>
+    <br/>
 
     <div id="customerSearch">
-        <h3>Step 1. Select a customer</h3>
+        <h4>Step 1. Select a customer</h4>
 
         <form class="form-inline" method="POST">
-            <input type="text" name="name" placeholder="Full name" autofocus="autofocus"/>
-            <input type="submit" class="btn btn-success" value="Search"/>
+            <input type="text" name="name" placeholder="Search by name" autofocus="autofocus"/>
+            <input type="submit" id="search" class="btn btn-success" value="Search"/>
         </form>
 
         <div class="results"></div>
@@ -85,8 +120,8 @@
 
     <div id="contractDetails" style="display: none">
 
-        <h3>Step 2. Fill contract data</h3>
-
+        <h4>Step 2. Fill contract data</h4>
+        <br/>
         <form class="form-horizontal" method="POST">
 
             <fieldset>
@@ -96,6 +131,7 @@
                     <label class="control-label">Name:</label>
 
                     <div class="controls">
+                        <input type="hidden" name="customerId" value=""/>
                         <span data-name="fullname">Maarika Tamm</span>
                     </div>
                 </div>
@@ -133,23 +169,7 @@
                     <label class="control-label">Contract name:</label>
 
                     <div class="controls">
-                        <input type="text" name="name" value=""/>
-                    </div>
-                </div>
-
-                <div class="control-group">
-                    <label class="control-label">Description:</label>
-
-                    <div class="controls">
-                        <textarea name="description"></textarea>
-                    </div>
-                </div>
-
-                <div class="control-group">
-                    <label class="control-label">Note:</label>
-
-                    <div class="controls">
-                        <input type="text" name="note" value=""/>
+                        <input type="text" name="name" class="input-xlarge required" value=""/>
                     </div>
                 </div>
 
@@ -157,22 +177,42 @@
                     <label class="control-label">Value amount:</label>
 
                     <div class="controls">
-                        <input type="text" name="valueAmount" value=""/>
+                        <input type="text" name="valueAmount" class="input-small required" value=""/> EUR
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label">Valid:</label>
+                    <label class="control-label">Valid since:</label>
 
                     <div class="controls">
-                        <input type="text" name="validFrom" class="input-small" value=""/> &ndash;
-                        <input type="text" name="validTo" class="input-small" value=""/>
+                        <input type="text" name="validFrom" class="input-small date today required" data-date-format="yyyy-mm-dd" value=""/>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Period:</label>
+
+                    <div class="controls">
+                        <select name="period" class="input-small">
+                            <option value="6">6 month</option>
+                            <option value="12">1 year</option>
+                            <option value="24">2 years</option>
+                            <option value="60">5 years</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">Description:</label>
+
+                    <div class="controls">
+                        <textarea name="description" class="input-xlarge"></textarea>
                     </div>
                 </div>
             </fieldset>
 
             <div class="form-actions">
-                <button type="submit" id="create" class="btn btn-large btn-primary">Create contract</button>
+                <input type="submit" id="create" class="btn btn-large btn-primary" value="Create contract"/>
                 <a href="" class="btn btn-large">Cancel</a>
             </div>
         </form>

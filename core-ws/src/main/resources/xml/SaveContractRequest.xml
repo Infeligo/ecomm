@@ -1,7 +1,0 @@
-<SaveContract>
-    <contractNumber>100100</contractNumber>
-    <name>Foo</name>
-    <description>Bar</description>
-    <valueAmount>300.20</valueAmount>
-    <note>Baz</note>
-</SaveContract>

@@ -21,6 +21,7 @@ public class Contract implements Logged {
     String note;
     BigDecimal valueAmount;
     Customer customer;
+    Address address;
     Date created;
     Date updated;
 
@@ -97,6 +98,15 @@ public class Contract implements Logged {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    @Column(name = "cst_address")
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     @Override
