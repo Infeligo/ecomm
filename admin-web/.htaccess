@@ -2,7 +2,7 @@
 RewriteEngine On
 
 # Installation directory
-RewriteBase /admin/
+RewriteBase /ecomm/admin-web/
 
 # Protect hidden files from being viewed
 <Files .*>
