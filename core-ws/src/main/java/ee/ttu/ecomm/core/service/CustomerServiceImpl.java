@@ -53,17 +53,6 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void saveCustomer(Customer customer) {
-        boolean isNew = customer.getId() == null;
-        Ebean.save(customer);
-        if (isNew) {
-            jmsTemplate.convertAndSend("Created customer " + customer.getFullName() + " (ID=" + customer.getId() + ")");
-        } else {
-            jmsTemplate.convertAndSend("Updated customer " + customer.getFullName() + " (ID=" + customer.getId() + ")");
-        }
-    }
-
-    @Override
     public List<Address> findAddresses(long customerId) {
         return Ebean.find(Address.class).where().eq("customer", customerId).findList();
     }
@@ -73,35 +62,25 @@ public class CustomerServiceImpl implements CustomerService {
         return null;
     }
 
-    @Override
-    public void saveAddress(long customerId, Address address) {
-        Ebean.save(address);
-        jmsTemplate.convertAndSend("Saved address ID=" + address.getId() + " for customer ID=" + customerId);
-    }
-
-    @Override
-    public void deleteAddress(long customerId, long addressId) {
-        Address address = getAddress(customerId, addressId);
-        Ebean.delete(address);
-        jmsTemplate.convertAndSend("Deleted address ID=" + addressId + " for customer ID=" + customerId);
-    }
-    
-    
 	@Override
 	public void saveOrUpdate(Customer customer) {
 		if (customer.getId() == null) {
-			Ebean.save(customer);	
+			Ebean.save(customer);
+            jmsTemplate.convertAndSend("Created customer " + customer.getFullName() + " (ID=" + customer.getId() + ")");
 		} else {
 			Ebean.update(customer);
+            jmsTemplate.convertAndSend("Updated customer " + customer.getFullName() + " (ID=" + customer.getId() + ")");
 		}
 	}
 	
 	@Override
 	public void saveOrUpdate(Address address) {
 		if (address.getId() == null) {
-			Ebean.save(address);	
+			Ebean.save(address);
+            jmsTemplate.convertAndSend("Saved address ID=" + address.getId() + " for customer ID=" + address.getCustomer());
 		} else {
 			Ebean.update(address);
+            jmsTemplate.convertAndSend("Updated address ID=" + address.getId() + " for customer ID=" + address.getCustomer());
 		}
 	}
 	
@@ -132,6 +111,7 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public void delete(Address address) {
 		Ebean.delete(address);
+        jmsTemplate.convertAndSend("Deleted address ID=" + address.getId() + " for customer ID=" + address.getCustomer());
 	}
 
 }

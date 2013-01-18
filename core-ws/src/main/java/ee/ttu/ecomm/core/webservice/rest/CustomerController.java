@@ -31,17 +31,6 @@ public class CustomerController {
         return customerService.getCustomer(customerId);
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST, produces = "application/json")
-    public void createCustomer(@RequestBody Customer customer) {
-        customerService.saveCustomer(customer);
-    }
-
-    @RequestMapping(value = "/{customerId}", method = RequestMethod.PUT, produces = "application/json")
-    public void updateCustomer(@PathVariable("customerId") long customerId, @RequestBody Customer customer) {
-        customer.setId(customerId);
-        customerService.saveCustomer(customer);
-    }
-
     @RequestMapping(value = "/{customerId}/addresses", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public List<Address> findAddresses(@PathVariable("customerId") long customerId) {
@@ -53,21 +42,6 @@ public class CustomerController {
     public Address getAddress(@PathVariable("customerId") long customerId, @PathVariable("addressId") long addressId) {
         return customerService.getAddress(customerId, addressId);
     }
-
-    @RequestMapping(value = "/{customerId}/addresses/", method = RequestMethod.POST, produces = "application/json")
-    @ResponseBody
-    public void createAddress(@PathVariable("customerId") long customerId, @RequestBody Address address) {
-        customerService.saveAddress(customerId, address);
-    }
-
-    @RequestMapping(value = "/{customerId}/addresses/{addressId}", method = RequestMethod.PUT, produces = "application/json")
-    @ResponseBody
-    public void updateAddress(@PathVariable("customerId") long customerId, @RequestBody Address address) {
-        address.setCustomer(customerId);
-        customerService.saveAddress(customerId, address);
-    }
-    
-        
     
     @RequestMapping(value = "/search", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody

@@ -13,10 +13,6 @@ Below is the (planned) list of system components:
 
 - **admin-web** - Contract Management web-client (PHP)
 
-- **admin-gui** - Customer Management GUI-client (Java/Swing)
+- **integration-client** - Customer Management GUI (Java/Swing)
 
-- **admin-gui-proxy** - proxy used by GUI-client (Java)
-
-- Integration component (JMS?)
-
-- Integration component client (Java?)
+- **event-monitor** - Core Event Monitoring GUI (Java/JMS/WebSockets)
