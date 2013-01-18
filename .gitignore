@@ -2,4 +2,7 @@
 *.iml
 *.iws
 *.ipr
+*.class
+core-ws/target/**
+event-monitor/target/**
 ebean.properties
