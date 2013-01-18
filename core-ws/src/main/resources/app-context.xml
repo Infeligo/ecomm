@@ -8,7 +8,7 @@
 
     <bean class= "org.springframework.remoting.jaxws.SimpleJaxWsServiceExporter">
         <!-- Make baseAddress a property -->
-        <property name="baseAddress" value="http://localhost:8081/core/soap/"/>
+        <property name="baseAddress" value="http://192.168.1.13:8081/core/soap/"/>
     </bean>
 
     <amq:broker id="broker" useJmx="false" persistent="false">
