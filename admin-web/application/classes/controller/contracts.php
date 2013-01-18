@@ -4,8 +4,8 @@ class Controller_Contracts extends Controller {
 
     public function before()
     {
-        $this->contractService = new SoapClient("http://localhost:8081/core/soap/ContractService?wsdl", array('cache_wsdl' => WSDL_CACHE_NONE));
-        $this->customerService = new SoapClient("http://localhost:8081/core/soap/CustomerService?wsdl", array('cache_wsdl' => WSDL_CACHE_MEMORY));
+        $this->contractService = new SoapClient("http://192.168.1.13:8081/core/soap/ContractService?wsdl", array('cache_wsdl' => WSDL_CACHE_MEMORY));
+        $this->customerService = new SoapClient("http://192.168.1.13:8081/core/soap/CustomerService?wsdl", array('cache_wsdl' => WSDL_CACHE_MEMORY));
     }
 
     public function action_index()
