@@ -6,6 +6,7 @@
 
     <groupId>ee.ttu.ecomm</groupId>
     <artifactId>core-ws</artifactId>
+    <packaging>war</packaging>
     <version>1.0</version>
 
     <build>
