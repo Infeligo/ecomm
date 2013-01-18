@@ -13,11 +13,9 @@ public class ContractCreateDTOTest {
     @Test
     public void testToContract() throws Exception {
         ContractCreateDTO contractDTO = new ContractCreateDTO();
-        contractDTO.setId(100L);
         contractDTO.setName("baz");
         contractDTO.setDescription("bar");
         contractDTO.setValidFrom(new Date());
-        contractDTO.setValidTo(new Date());
         contractDTO.setValueAmount(BigDecimal.TEN);
         contractDTO.setCustomerId(100L);
         Contract contract = contractDTO.toContract();
