@@ -1,11 +1,13 @@
 package ee.ttu.ecomm.core.service;
 
 import com.avaje.ebean.Ebean;
+import com.avaje.ebean.FetchConfig;
 import ee.ttu.ecomm.core.domain.Contract;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.FetchType;
 import java.util.List;
 
 @Service

@@ -19,6 +19,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
+                    <th>Customer</th>
                     <th>Period</th>
                 </tr>
             </thead>
@@ -27,6 +28,7 @@
                 <tr>
                     <td><a href="/admin/contracts/<?= $contract->id ?>"><?= $contract->id ?></a></td>
                     <td><a href="/admin/contracts/<?= $contract->id ?>"><?= $contract->name ?></a></td>
+                    <td><?= $contract->customer->firstName; ?> <?= $contract->customer->lastName; ?></td>
                     <td><?= date_create($contract->validFrom)->format('Y-m-d'); ?> &ndash;
                         <?= date_create($contract->validTo)->format('Y-m-d'); ?></td>
                 </tr>

@@ -1,9 +1,6 @@
 package ee.ttu.ecomm.core.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlTransient;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -92,6 +89,8 @@ public class Contract implements Logged {
         this.valueAmount = valueAmount;
     }
 
+    @ManyToOne
+    @JoinColumn(name="customer")
     public Customer getCustomer() {
         return customer;
     }
@@ -100,7 +99,8 @@ public class Contract implements Logged {
         this.customer = customer;
     }
 
-    @Column(name = "cst_address")
+    @ManyToOne
+    @JoinColumn(name="cst_address")
     public Address getAddress() {
         return address;
     }

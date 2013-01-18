@@ -32,10 +32,9 @@
             $contractDetails.find('[name=customerId]').val(data.id);
             $contractDetails.find('[data-name=fullname]').text(data.firstName + " " + data.lastName);
             $contractDetails.find('[data-name=identityCode]').text(data.identityCode);
-            $contractDetails.find('[data-name=birthDate]').text(data.birthDate.substr(0, 10));
 
             var addresses = ensureArray(data.addresses);
-            var $addresses = $contractDetails.find('[name=address]').empty();
+            var $addresses = $contractDetails.find('[name=addressId]').empty();
             _.each(addresses, function (el) {
                 $addresses.append('<option value="{id}">{address}, {house}, {townCounty}</option>'.assign(el));
             });
@@ -125,7 +124,7 @@
         <form class="form-horizontal" method="POST">
 
             <fieldset>
-                <legend>Contractee</legend>
+                <legend>Customer</legend>
 
                 <div class="control-group">
                     <label class="control-label">Name:</label>
@@ -145,18 +144,10 @@
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label">Date of birth:</label>
-
-                    <div class="controls">
-                        <span data-name="birthDate"></span>
-                    </div>
-                </div>
-
-                <div class="control-group">
                     <label class="control-label">Address:</label>
 
                     <div class="controls">
-                        <select name="address" class="input-xlarge"></select>
+                        <select name="addressId" class="input-xlarge"></select>
                     </div>
                 </div>
 
