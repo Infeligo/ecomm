@@ -27,6 +27,10 @@ public class SearchDialog extends JDialog {
 		pack();
 	}
 	
+	public void refreshSeachResults() {
+		searchPanel.forceSearch();
+	}
+	
 	private SearchPanel createSearchPanel() {
 		return new SearchPanel() {			
 			@Override public void doSearch(Customer example) {
@@ -57,7 +61,7 @@ public class SearchDialog extends JDialog {
 		return new SearchResultPanel() {			
 			@Override
 			public void onCustomerSelection(Customer customer) {
-				final CustomerDialog customerDialog = new CustomerDialog(customer);
+				final CustomerDialog customerDialog = new CustomerDialog(customer, SearchDialog.this);
 				customerDialog.setVisible(true);
 				customerDialog.toFront();
 				MainFrame.getBean(ClientDatasource.class).fetchAddresses(customer, new ClientDatasource.ClientDatasourceCallback<List<Address>>() {					

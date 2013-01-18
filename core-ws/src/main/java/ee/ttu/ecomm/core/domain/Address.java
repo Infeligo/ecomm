@@ -10,7 +10,8 @@ import java.util.Date;
 @Table(name="CST_ADDRESS")
 public class Address implements Logged {
 
-    Long id;
+	Long id;
+	Long customer;
     String zip;
     String house;
     String address;
@@ -22,7 +23,7 @@ public class Address implements Logged {
     String sms;
     String email;
     String note;
-    String country;
+    Long country;
     Date created;
     Date updated;
 
@@ -36,7 +37,16 @@ public class Address implements Logged {
         this.id = id;
     }
 
-    public String getZip() {
+    
+    public Long getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Long customer) {
+		this.customer = customer;
+	}
+
+	public String getZip() {
         return zip;
     }
 
@@ -124,11 +134,11 @@ public class Address implements Logged {
         this.note = note;
     }
 
-    public String getCountry() {
+    public Long getCountry() {
         return country;
     }
 
-    public void setCountry(String country) {
+    public void setCountry(Long country) {
         this.country = country;
     }
 

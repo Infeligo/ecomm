@@ -3,6 +3,7 @@ package ee.ttu.ecomm.core.service;
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.ExampleExpression;
 import com.avaje.ebean.ExpressionList;
+import com.avaje.ebean.Junction;
 import com.avaje.ebean.validation.NotNull;
 import com.avaje.ebeaninternal.server.expression.DefaultExampleExpression;
 import ee.ttu.ecomm.core.domain.Address;
@@ -84,5 +85,53 @@ public class CustomerServiceImpl implements CustomerService {
         Ebean.delete(address);
         jmsTemplate.convertAndSend("Deleted address ID=" + addressId + " for customer ID=" + customerId);
     }
+    
+    
+	@Override
+	public void saveOrUpdate(Customer customer) {
+		if (customer.getId() == null) {
+			Ebean.save(customer);	
+		} else {
+			Ebean.update(customer);
+		}
+	}
+	
+	@Override
+	public void saveOrUpdate(Address address) {
+		if (address.getId() == null) {
+			Ebean.save(address);	
+		} else {
+			Ebean.update(address);
+		}
+	}
+	
+    @Override
+    public List<Customer> searchCustomers(Customer example) {
+        ExpressionList<Customer> query = Ebean.find(Customer.class).where();
+
+        if (example != null) {
+        	Junction<Customer> disjunction = query.conjunction();
+        	if (org.springframework.util.StringUtils.hasLength(example.getFirstName())) {
+        		disjunction.ilike("firstName", "%" + example.getFirstName() + "%");
+        	}
+        	if (org.springframework.util.StringUtils.hasLength(example.getLastName())) {
+        		disjunction.ilike("lastName", "%" + example.getLastName() + "%");
+        	}
+        	if (org.springframework.util.StringUtils.hasLength(example.getIdentityCode())) {
+        		disjunction.ilike("identityCode", "%" + example.getIdentityCode() + "%");
+        	}
+        	if (example.getBirthDate() != null) {
+        		disjunction.eq("birthDate", example.getBirthDate());
+        	}
+        }        
+
+        return query.findList();
+        
+    }
+
+	@Override
+	public void delete(Address address) {
+		Ebean.delete(address);
+	}
 
 }

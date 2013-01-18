@@ -28,8 +28,8 @@ public class AddressPanel extends JPanel {
 	private final JLabel addressLabel = new JLabel("Address:", JLabel.TRAILING);
 	private final JTextField address = new JTextField(16);
 
-	private final JLabel countryLabel = new JLabel("Country:", JLabel.TRAILING);
-	private final JTextField country = new JTextField(16);
+	private final JLabel countyLabel = new JLabel("County:", JLabel.TRAILING);
+	private final JTextField county = new JTextField(16);
 
 	public AddressPanel() {
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -41,7 +41,6 @@ public class AddressPanel extends JPanel {
 	public AddressPanel(Address address) {
 		this();
 		if (address != null) {
-			addressItem = address;
 			refreshUI(address);	
 		}
 	}
@@ -50,7 +49,8 @@ public class AddressPanel extends JPanel {
 		zip.setText(addressItem.getZip());
 		house.setText(addressItem.getHouse());
 		address.setText(addressItem.getAddress());
-		country.setText(addressItem.getCountry());
+		county.setText(addressItem.getCounty());
+		this.addressItem = addressItem;
 	}
 	
 	public Address getUpdatedAddress() {
@@ -58,7 +58,8 @@ public class AddressPanel extends JPanel {
 		result.setZip(zip.getText());
 		result.setHouse(house.getText());
 		result.setAddress(address.getText());
-		result.setCountry(country.getText());
+		result.setCounty(county.getText());
+		result.setId(addressItem.getId());
 		return result;
 	}
 	
@@ -93,9 +94,9 @@ public class AddressPanel extends JPanel {
 		addressLabel.setLabelFor(address);
 		result.add(address);
 
-		result.add(countryLabel);
-		countryLabel.setLabelFor(country);
-		result.add(country);
+		result.add(countyLabel);
+		countyLabel.setLabelFor(county);
+		result.add(county);
 
 		SpringUtilities.makeCompactGrid(result, 4, 2, 0, 0, 10, 10);
 		return result;

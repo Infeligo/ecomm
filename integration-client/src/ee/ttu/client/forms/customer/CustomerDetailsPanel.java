@@ -1,5 +1,8 @@
 package ee.ttu.client.forms.customer;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -66,8 +69,22 @@ public class CustomerDetailsPanel extends JPanel {
 		result.setFirstName(firstName.getText());
 		result.setLastName(lastName.getText());
 		result.setIdentityCode(identityCode.getText());
-		result.setBirthDate(((UtilDateModel) birtDate.getModel()).getValue());
+		result.setBirthDate(getDateWithoutTime(((UtilDateModel) birtDate.getModel()).getValue()));
 		return result;
+	}
+	
+	private Date getDateWithoutTime(Date in) {
+		if (in == null) {
+			return null;
+		}
+		Calendar c = Calendar.getInstance();
+		c.setTime(in);
+		c.set(Calendar.HOUR_OF_DAY, 0);
+	    c.set(Calendar.MINUTE, 0);
+	    c.set(Calendar.SECOND, 0);
+	    c.set(Calendar.MILLISECOND, 0);
+	    c.set(Calendar.MILLISECOND, 0);
+	    return c.getTime();
 	}
 
 	public void refreshUI(Customer customer) {
@@ -75,6 +92,6 @@ public class CustomerDetailsPanel extends JPanel {
 		firstName.setText(customer.getFirstName());
 		lastName.setText(customer.getLastName());
 		identityCode.setText(customer.getIdentityCode());		
-		((UtilDateModel) birtDate.getModel()).setValue(customer.getBirthDate());
+		((UtilDateModel) birtDate.getModel()).setValue(getDateWithoutTime(customer.getBirthDate()));
 	}
 }

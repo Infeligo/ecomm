@@ -62,9 +62,40 @@ public class CustomerController {
 
     @RequestMapping(value = "/{customerId}/addresses/{addressId}", method = RequestMethod.PUT, produces = "application/json")
     @ResponseBody
-    public void updateAddress(@PathVariable("customerId") long customerId, @PathVariable("addressId") long addressId, @RequestBody Address address) {
-        address.setId(addressId);
+    public void updateAddress(@PathVariable("customerId") long customerId, @RequestBody Address address) {
+        address.setCustomer(customerId);
         customerService.saveAddress(customerId, address);
     }
+    
+        
+    
+    @RequestMapping(value = "/search", method = RequestMethod.POST, produces = "application/json")
+    @ResponseBody
+    public List<Customer> searchCustomers(@RequestBody Customer customer) {
+        return customerService.searchCustomers(customer);
+    }
+    
+    @RequestMapping(value = "/update", method = RequestMethod.POST, produces = "application/json")
+    @ResponseBody
+    public Customer saveOrUpdate(@RequestBody Customer customer) {
+    	customerService.saveOrUpdate(customer);
+        return customer;
+    }
+        
+    @RequestMapping(value = "/{customerId}/addresses/update", method = RequestMethod.POST, produces = "application/json")
+    @ResponseBody
+    public Address saveOrUpdate(@PathVariable("customerId") long customerId, @RequestBody Address address) {
+    	address.setCustomer(customerId);
+    	customerService.saveOrUpdate(address);
+        return address;
+    }
+    
+    @RequestMapping(value = "/{customerId}/addresses/delete", method = RequestMethod.POST, produces = "application/json")
+    @ResponseBody
+    public Address deleteAddress(@RequestBody Address address) {
+    	customerService.delete(address);
+    	return address;
+    }
+    
 
 }

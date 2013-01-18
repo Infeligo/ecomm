@@ -21,7 +21,11 @@ public class SearchPanel extends JPanel {
 		add(createSearchPanelButtons());
 	}	
 	
-	public void doSearch(Customer example) {}	
+	public void doSearch(Customer example) {}
+	
+	public void forceSearch() {
+		doSearch(customerDetailsPanel.getUpdatedCustomer());
+	}
 	
 	private JPanel createSearchPanelButtons() {
 		JPanel result = new JPanel();
@@ -29,7 +33,7 @@ public class SearchPanel extends JPanel {
 		JButton searchBtn = new JButton("Search");
 		searchBtn.addActionListener(new ActionListener() {			
 			@Override public void actionPerformed(ActionEvent e) {
-				doSearch(customerDetailsPanel.getUpdatedCustomer());
+				forceSearch();
 			}			
 		});
 		result.add(searchBtn);

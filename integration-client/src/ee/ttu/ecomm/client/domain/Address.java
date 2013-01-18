@@ -2,10 +2,10 @@ package ee.ttu.ecomm.client.domain;
 
 import java.util.Date;
 
-
 public class Address implements Logged {
 
-    long id;
+    Long id;
+    Long customer;
     String zip;
     String house;
     String address;
@@ -17,19 +17,28 @@ public class Address implements Logged {
     String sms;
     String email;
     String note;
-    String country;
+    Long country;
     Date created;
     Date updated;
-
-    public long getId() {
+    
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getZip() {
+    
+    public Long getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Long customer) {
+		this.customer = customer;
+	}
+
+	public String getZip() {
         return zip;
     }
 
@@ -117,11 +126,11 @@ public class Address implements Logged {
         this.note = note;
     }
 
-    public String getCountry() {
+    public Long getCountry() {
         return country;
     }
 
-    public void setCountry(String country) {
+    public void setCountry(Long country) {
         this.country = country;
     }
 
