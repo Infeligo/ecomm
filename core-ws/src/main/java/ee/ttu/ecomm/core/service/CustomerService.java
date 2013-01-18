@@ -22,5 +22,12 @@ public interface CustomerService {
     void saveAddress(long customerId, Address address);
 
     void deleteAddress(long customerId, long addressId);
+    
+    
+    public List<Customer> searchCustomers(Customer example);
+    void saveOrUpdate(Customer customer);    
+    void saveOrUpdate(Address address);
+    void delete(Address address);
+    
 
 }
